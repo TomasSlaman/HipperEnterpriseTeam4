@@ -39,6 +39,11 @@
 
                 </tr>
                 <tr>
+                    <td>Address</td>
+                    <td><form:input path="address" /></td>
+
+                </tr>
+                <tr>
                     <td>Postalcode</td>
                     <td><form:input path="postalCode" /></td>
 

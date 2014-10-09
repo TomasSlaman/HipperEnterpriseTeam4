@@ -32,12 +32,12 @@ public class PatientDao {
     }
     
     public void updatePatient(PatientUser patient){
-        PatientUser patientToUpdate = getPatient((int) patient.getId());
+        PatientUser patientToUpdate = getPatient(patient.getId());
         patientToUpdate.setFirstName(patient.getFirstName());
         patientToUpdate.setLastName(patient.getLastName());
         patientToUpdate.setEmail(patient.getEmail());
         patientToUpdate.setPassword(patient.getPassword());
-        patientToUpdate.setAddres(patient.getAddres());
+        patientToUpdate.setAddress(patient.getAddress());
         patientToUpdate.setPostalCode(patient.getPostalCode());
         patientToUpdate.setCity(patient.getCity());
         patientToUpdate.setLength(patient.getLength());

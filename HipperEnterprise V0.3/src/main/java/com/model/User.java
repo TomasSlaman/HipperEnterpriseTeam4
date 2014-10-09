@@ -93,11 +93,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getAddres() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddres(String addres) {
+    public void setAddress(String addres) {
         this.address = addres;
     }
 
