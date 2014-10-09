@@ -45,23 +45,22 @@ public class PatientDao {
         getCurrentSession().update(patientToUpdate);
     }
     
-     public PatientUser getPatient(int id) {
+     public PatientUser getPatient(long id) {
         PatientUser patient = (PatientUser)getCurrentSession().get(PatientUser.class, id);
         return patient;
     }
      
-     public void deletePatient(int id) {
+     public void deletePatient(long id) {
         PatientUser patient = getPatient(id);
         if (patient != null) {
             getCurrentSession().delete(patient);
         }
     }
      
-     @SuppressWarnings("unchecked")
+   @SuppressWarnings("unchecked")
     public List<PatientUser> getPatients() {
-        return getCurrentSession().createQuery("from Patient").list();
+        return getCurrentSession().createQuery("from PatientUser").list();
     }
-
     public  void storeAllPatients(List<PatientUser> patients) {
              
         for (PatientUser patient : patients) {

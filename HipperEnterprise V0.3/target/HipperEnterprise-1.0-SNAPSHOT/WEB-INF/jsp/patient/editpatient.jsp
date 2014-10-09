@@ -6,32 +6,60 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>${paginaTitel}</title>
-        <link href="<c:url value="/css/style.css" />" rel="stylesheet" >
+        <link href="<c:url value="/resources/style.css" />" rel="stylesheet" >
     </head>
 
     <body>
         <h2>${paginaTitel}</h2>
-        <form:form method="POST" commandName="member" action="${pageContext.request.contextPath}/member/add">
+        <form:form method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/edit">
+            
             <table>
                 <tr>
-                    <td>Voornaam</td>
+                    <td>Id</td>
+                    <td><form:input path="id" readonly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Firstname</td>
                     <td><form:input path="firstName" /></td>
 
                 </tr>
                 <tr>
-                    <td>Achternaam</td>
+                    <td>Lastname</td>
                     <td><form:input path="lastName" /></td>
 
                 </tr>
-                <td>Team:</td>
-                <td>
-                    <form:select path="team">
-                        <form:option value="0">Selecteer een team</form:option>
-                        <form:options items="${teamList}" itemValue="id" itemLabel="name"/>
-                    </form:select>
-                </td>
                 <tr>
-                    <td><input type="submit" value="Add Member" /></td>
+                    <td>Email</td>
+                    <td><form:input path="email" /></td>
+
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><form:input path="password" /></td>
+
+                </tr>
+                <tr>
+                    <td>Postalcode</td>
+                    <td><form:input path="postalCode" /></td>
+
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td><form:input path="city" /></td>
+
+                </tr>
+                <tr>
+                    <td>Length</td>
+                    <td><form:input path="length" /></td>
+
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td><form:input path="weight" /></td>
+
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Edit patient" /></td>
                 </tr>
             </table>
         </form:form>

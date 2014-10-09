@@ -32,6 +32,8 @@ public class PatientController {
 
     private static String titleNew = "New patient";
     private static String titleEdit = "Edit patient";
+    
+
 
     @RequestMapping(value = "/patientlist")
     public ModelAndView patientlist() throws IOException {
@@ -47,7 +49,7 @@ public class PatientController {
 
         ModelAndView patientAddView = new ModelAndView("/patient/addpatient");
         patientAddView.addObject("pageTitle", titleNew);
-        patientAddView.addObject("member", new PatientUser());
+        patientAddView.addObject("patient", new PatientUser());
 
         return patientAddView;
 
@@ -68,7 +70,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public ModelAndView editPage(@PathVariable Integer id) {
+    public ModelAndView editPage(@PathVariable Long id) {
 
         ModelAndView patientEditView = new ModelAndView("/patient/editpatient");
         PatientUser patient = patientService.getPatient(id);
@@ -79,7 +81,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("member") PatientUser patient) {
+    public ModelAndView edit(@ModelAttribute("patient") PatientUser patient) {
 
         ModelAndView patientlistView = new ModelAndView("/patient/listpatient");
         patientService.updatePatient(patient);
@@ -93,7 +95,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deletePatient(@PathVariable Integer id) {
+    public ModelAndView deletePatient(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("/patient/listpatient");
         patientService.deletePatient(id);
         List<PatientUser> patients = patientService.getPatients();

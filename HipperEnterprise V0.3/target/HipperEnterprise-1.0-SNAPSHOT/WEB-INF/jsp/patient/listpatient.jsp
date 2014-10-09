@@ -7,39 +7,41 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>Ledenlijst</title>
+            <title>Patient overview</title>
     </head>
     <body>
 
-        <h2>Dit is de Spring ledenlijst van de Jeu de Boules Club</h2>
+        <h2>This is the patientoverview </h2>
          <h3>${message}</h3>
             <table  border="1px" cellpadding="0" cellspacing="0">
                 <tr>
                     <td><strong> id</strong></td>
-                    <td><strong> Voornaam </strong></td>
-                    <td><strong> Achternaam </strong></td>
-                    <td><strong> Team </strong></td>
+                    <td><strong> Firstname </strong></td>
+                    <td><strong> Lastname </strong></td>
+                    <td><strong> Email </strong></td>
+                    <td><strong> Password </strong></td>
                     <td><strong> </strong></td>
                 </tr>
-                <c:forEach var="member" items="${members}">
+                <c:forEach var="patient" items="${patients}">
                     <tr>
-                        <td>${member.id}</td>
-                        <td>${member.firstName}</td>
-                        <td>${member.lastName}</td>
-                        <td>${member.team.name}</td>
+                        <td>${patient.id}</td>
+                        <td>${patient.firstName}</td>
+                        <td>${patient.lastName}</td>
+                        <td>${patient.email}</td>
+                        <td>${patient.password}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/member/edit/${member.id}">Edit</a>
+                            <a href="${pageContext.request.contextPath}/patient/edit/${patient.id}">Edit</a>
                             <br/>
-                            <a href="${pageContext.request.contextPath}/member/delete/${member.id}">Delete</a><br/>
+                            <a href="${pageContext.request.contextPath}/patient/delete/${patient.id}">Delete</a><br/>
                         </td>
                     </tr> 
                 </c:forEach>
             </table>
         </form> <p>
-            <a href="${pageContext.request.contextPath}/member/add">Maak nieuw lid aan</a>
+            <a href="${pageContext.request.contextPath}/patient/add">Add to patient</a>
         </p>
         <p>
-            <a href="${pageContext.request.contextPath}/menu">Terug naar het menu</a>
+            <a href="${pageContext.request.contextPath}/index">Back to index</a>
         </p>
     </body>
 </html>

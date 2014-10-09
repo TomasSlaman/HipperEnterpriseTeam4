@@ -29,11 +29,11 @@ public class PatientService {
         patientDAO.updatePatient(patient);
     }
 
-    public PatientUser getPatient(int id) {
+    public PatientUser getPatient(long id) {
         return patientDAO.getPatient(id);
     }
 
-    public void deletePatient(int id) {
+    public void deletePatient(long id) {
         patientDAO.deletePatient(id);
     }
 
