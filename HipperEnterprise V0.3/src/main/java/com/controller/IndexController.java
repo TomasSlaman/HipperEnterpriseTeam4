@@ -12,5 +12,10 @@ public class IndexController {
     public ModelAndView index(){
         return new ModelAndView("index");
     }
+    
+//    @RequestMapping(value = "/patient/patientlist")
+//    public ModelAndView patientlist(){
+//        return new ModelAndView("patient");
+//    }
 	
 }
