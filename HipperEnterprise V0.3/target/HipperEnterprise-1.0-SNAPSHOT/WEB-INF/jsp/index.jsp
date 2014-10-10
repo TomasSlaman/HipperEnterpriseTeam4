@@ -13,9 +13,7 @@
   </head>
   <body>
     <h1>Welkom op de login</h1>
-   
-     <br>
-    Klik <a href="${pageContext.request.contextPath}/test">hier</a> voor de database setup.
+
     <br>
     Klik <a href="${pageContext.request.contextPath}/patient/patientlist">hier</a> voor de patientlist.
    
