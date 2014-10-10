@@ -18,6 +18,8 @@
     Klik <a href="${pageContext.request.contextPath}/test">hier</a> voor de database setup.
     <br>
     Klik <a href="${pageContext.request.contextPath}/patient/patientlist">hier</a> voor de patientlist.
-   
+    <br>
+    Klik <a href="${pageContext.request.contextPath}/exercise/list">hier </a> voor de exercise list.
+    
   </body>
 </html>
