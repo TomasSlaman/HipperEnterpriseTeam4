@@ -1,0 +1,21 @@
+.page-container {
+    overflow: auto;
+    background: url(../images/farmer.jpg) no-repeat 0px 0px;
+    background-size: 100%;
+}
+
+.left-container {
+    position: relative;
+    float: left;
+    width: 700px;
+    border-right: 10px solid rgba(230, 230, 230, 0.5);
+}
+
+.right-container {
+    overflow: hidden;
+}
+
+.login-form {
+    max-width: 400px;
+    margin: auto;
+}
