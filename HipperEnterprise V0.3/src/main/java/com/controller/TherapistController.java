@@ -30,7 +30,7 @@ public class TherapistController {
     @RequestMapping(value = "/login")
     public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) throws IOException {
         TherapistUser therapist = therapistService.getTherapist(email, password);
-        ModelAndView mav = new ModelAndView("/index");
+        ModelAndView mav = new ModelAndView("index");
         if (therapist != null) {
             mav = new ModelAndView("home/home");
         }

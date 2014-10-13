@@ -5,12 +5,11 @@
  */
 package com.dao;
 
-import com.model.PatientUser;
 import com.model.TherapistUser;
-import java.beans.Expression;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -54,12 +53,14 @@ public class TherapistDao {
 
     public TherapistUser getTherapist(String email, String password) {
         List<TherapistUser> therapists = new LinkedList();
-        Criteria criteria = getCurrentSession().createCriteria(TherapistUser.class);
-        criteria.add(Restrictions.eq("email", email));
-        criteria.add(Restrictions.eq("password", password));
-        therapists = criteria.list();
+        therapists = sessionFactory.getCurrentSession()
+			.createQuery("from User where email=? AND password=?")
+			.setParameter(0, email)
+                        .setParameter(1, password)
+			.list();
+        
         TherapistUser therapist = null;
-        if (therapists.size() > 0) {
+        if (therapists != null && therapists.size() > 0) {
             therapist = therapists.get(0);
         }
         return therapist;

@@ -1,11 +1,23 @@
 package com.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
   * @author Jeroen
  */
+@Entity
+@Table(name = "Therapist")
 public class TherapistUser extends User {
-
+    
+    @Column(name = "occupation", nullable = false) 
     private String occupation;
+    @Column(name = "firm", nullable = false) 
     private String firm;
+
+    public TherapistUser() {
+    }
 
     public TherapistUser(String occupation, String firm, long id, String firstname, String lastname, String email, String password, String addres, String postalCode, String city) {
         super(id, firstname, lastname, email, password, addres, postalCode, city);
