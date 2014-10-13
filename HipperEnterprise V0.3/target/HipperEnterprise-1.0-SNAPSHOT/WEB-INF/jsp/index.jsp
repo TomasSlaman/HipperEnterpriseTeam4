@@ -11,16 +11,16 @@
         <div class="page-container">
             <div class="left-container">
                 <div class="login-form">
-                    <form method="POST" action="${pageContext.request.contextPath}/therapist/login">
+                    <form id="login-form" method="POST" action="${pageContext.request.contextPath}/therapist/login">
                         <div class="input-group">
                             <span class="input-group-addon">Username</span>
-                            <input type="text" class="form-control" name="email" placeholder="Email">
+                            <input type="text" class="form-control" name="email" placeholder="Email" required>
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon">Password</span>
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
-                        <button type="submit" class="btn btn-default">Login!</button>
+                        <button type="submit" name="submit" class="btn btn-default">Login!</button>
                     </form>
                 </div>
             </div>
@@ -46,6 +46,9 @@
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        
+        <script src="<c:url value="/resources/js/validation/dist/jquery.validate.min.js" />"></script>
+        <script src="<c:url value="/resources/js/validation/dist/additional-methods.min.js" />"></script>
         
         <!-- Hipper script -->
         <script src="<c:url value="/resources/js/script.js" />"></script>
