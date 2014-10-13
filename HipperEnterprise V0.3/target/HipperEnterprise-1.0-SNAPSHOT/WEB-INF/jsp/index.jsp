@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hipper</title>
-        <link rel="stylesheet" style="text/css" href="<c:url value="/resources/css/style.css" />" />
+        <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" />
     </head>
     <body>
         <div class="page-container">
