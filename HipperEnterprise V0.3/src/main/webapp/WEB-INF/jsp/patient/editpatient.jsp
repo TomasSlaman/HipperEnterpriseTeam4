@@ -65,6 +65,9 @@
                 </tr>
                 <tr>
                     <td><input type="submit" value="Edit patient" /></td>
+                    <td><a href="${pageContext.request.contextPath}/patient/patientlist">
+                        <input type="button" value="Cancel" /></td>
+                </a>  
                 </tr>
             </table>
         </form:form>
