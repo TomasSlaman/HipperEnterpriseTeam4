@@ -32,8 +32,6 @@ public class PatientController {
 
     private static String titleNew = "New patient";
     private static String titleEdit = "Edit patient";
-    
-
 
     @RequestMapping(value = "/patientlist")
     public ModelAndView patientlist() throws IOException {
