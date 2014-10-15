@@ -30,6 +30,8 @@
                 </tr>
                 <tr>
                     <td> <input type="submit" value="Update Exercise"/> </td>
+                    <td><a href="${pageContext.request.contextPath}/exercise/list">
+                        <input type="button" value="Cancel" /></td>
                 </tr>
             </table>
         </form:form>
