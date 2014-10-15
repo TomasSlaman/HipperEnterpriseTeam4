@@ -1,19 +1,11 @@
-
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>Patient overview</title>
-    </head>
-    <body>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<%@ include file="../template/top.jsp" %>
 
         <h2>This is the patientoverview </h2>
          <h3>${message}</h3>
-            <table  border="1px" cellpadding="0" cellspacing="0">
+            <table class="table" border="1px" cellpadding="0" cellspacing="0">
                 <tr>
                     <td><strong> id</strong></td>
                     <td><strong> Firstname </strong></td>
@@ -37,11 +29,10 @@
                     </tr> 
                 </c:forEach>
             </table>
-        </form> <p>
-            <a href="${pageContext.request.contextPath}/patient/add">Add to patient</a>
+ <p>
+            <a href="${pageContext.request.contextPath}/patient/add">Add patient</a>
         </p>
         <p>
             <a href="${pageContext.request.contextPath}/index">Back to index</a>
         </p>
-    </body>
-</html>
+<%@ include file="../template/bottom.jsp" %>
