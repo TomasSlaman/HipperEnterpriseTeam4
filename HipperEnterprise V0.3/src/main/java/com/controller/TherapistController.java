@@ -32,7 +32,7 @@ public class TherapistController {
         TherapistUser therapist = therapistService.getTherapist(email, password);
         ModelAndView mav = new ModelAndView("index");
         if (therapist != null) {
-            mav = new ModelAndView("home/home");
+            mav = new ModelAndView("homescreen/home");
         }
 
         return mav;

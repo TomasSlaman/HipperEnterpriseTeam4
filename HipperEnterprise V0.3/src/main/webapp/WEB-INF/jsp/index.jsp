@@ -30,7 +30,8 @@
                 Klik <a href="${pageContext.request.contextPath}/patient/patientlist">hier</a> voor de patientlist.
                 <br>
                 Klik <a href="${pageContext.request.contextPath}/exercise/list">hier </a> voor de exercise list.
-
+                <br>
+                Klik <a href="${pageContext.request.contextPath}/homescreen/home"> hier</a> voor homescreen.
             </div>
         </div>
 
