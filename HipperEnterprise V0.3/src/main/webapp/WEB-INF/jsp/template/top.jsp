@@ -35,15 +35,15 @@
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Patient management</a>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Patient Overview</a></li>
-                        <li><a href="#">Add Patient</a></li>
+                        <li><a href="${pageContext.request.contextPath}/patient/patientlist">Patient Overview</a></li>
+                        <li><a href="${pageContext.request.contextPath}/patient/add">Add Patient</a></li>
                       </ul>
                     </li>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Exercise management</a>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Exercise Overview</a></li>
-                        <li><a href="#">Add Exercise</a></li>
+                        <li><a href="${pageContext.request.contextPath}/exercise/list">Exercise Overview</a></li>
+                        <li><a href="${pageContext.request.contextPath}/exercise/add">Add Exercise</a></li>
                       </ul>
                     </li>
                     <li class="dropdown">

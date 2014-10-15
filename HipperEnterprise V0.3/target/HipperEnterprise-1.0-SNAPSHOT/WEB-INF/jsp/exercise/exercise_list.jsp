@@ -4,15 +4,11 @@
     Author     : duytran
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Exercise Overview</title>
-    </head>
-    <body>
+<%@ include file="../template/top.jsp" %>
         <h3>This is the exercise overview.</h3>
         <c:choose>
             <c:when test="${exercises.size() != null}">
@@ -55,8 +51,7 @@
                 <p>There are no exercises.</p>
             </c:otherwise>
         </c:choose>
-        <button><a href="${pageContext.request.contextPath}/exercise/add">Add exercise</a></button>
+        <a href="${pageContext.request.contextPath}/exercise/add">Add exercise</a>
         <br>
-        <button><a href="${pageContext.request.contextPath}/">Back to the index</a></button>
-    </body>
-</html>
+        <a href="${pageContext.request.contextPath}/">Back to the index</a>
+    <%@ include file="../template/bottom.jsp" %>
