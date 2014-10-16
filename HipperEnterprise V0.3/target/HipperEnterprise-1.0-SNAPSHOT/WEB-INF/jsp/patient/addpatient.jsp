@@ -4,61 +4,90 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
 
-<h2>${paginaTitel}</h2>
-<form:form method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/add">
-    <table>
-        <tr>
-            <td>Firstname</td>
-            <td><form:input path="firstName" /></td>
+<%--<form:form class="form-horizontal" method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/add">
 
-        </tr>
-        <tr>
-            <td>Lastname</td>
-            <td><form:input path="lastName" /></td>
+    Firstname<form:input path="firstName" />
+    Lastname<form:input path="lastName" />
+    Email<form:input path="email" />
+    Password<form:input path="password" />
+    Address<form:input path="address" />
+    Postalcode<form:input path="postalCode" />
+    City<form:input path="city" />
+    Length<form:input path="length" />
+    Weight<form:input path="weight" />
+    <input type="submit" value="Add patient" />
+    <a href="${pageContext.request.contextPath}/patient/patientlist">
+        <input type="button" value="Cancel" />
+    </a> 
 
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><form:input path="email" /></td>
 
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><form:input path="password" /></td>
+</form:form>--%>
+<div class="container">
+    <h2>Add Patient</h2>
+    <form:form class="form-horizontal" role="form" method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/add">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="firstName">First name:</label>
+            <div class="col-sm-10">
+                <form:input path="firstName" class="form-control" placeholder="Enter first name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="LastName">Last name:</label>
+            <div class="col-sm-10">          
+                <form:input path="lastName" class="form-control" placeholder="Enter last name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">E-mail:</label>
+            <div class="col-sm-10">
+                <form:input path="email" class="form-control" placeholder="Enter e-mail" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="password">Password:</label>
+            <div class="col-sm-10">
+                <form:input path="password" class="form-control" placeholder="Enter password" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="address">Address:</label>
+            <div class="col-sm-10">
+                <form:input path="address" class="form-control" placeholder="Enter address" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="postalCode">Postal code:</label>
+            <div class="col-sm-10">
+                <form:input path="postalCode" class="form-control" placeholder="Enter postal code" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="city">City:</label>
+            <div class="col-sm-10">
+                <form:input path="city" class="form-control" placeholder="Enter city" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="length">Length:</label>
+            <div class="col-sm-10">
+                <form:input path="length" class="form-control" placeholder="Enter length" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="weight">Weight:</label>
+            <div class="col-sm-10">
+                <form:input path="weight" class="form-control" placeholder="Enter weight" />
+            </div>
+        </div>
 
-        </tr>
-        <tr>
-            <td>Address</td>
-            <td><form:input path="address" /></td>
-
-        </tr>
-        <tr>
-            <td>Postalcode</td>
-            <td><form:input path="postalCode" /></td>
-
-        </tr>
-        <tr>
-            <td>City</td>
-            <td><form:input path="city" /></td>
-
-        </tr>
-        <tr>
-            <td>Length</td>
-            <td><form:input path="length" /></td>
-
-        </tr>
-        <tr>
-            <td>Weight</td>
-            <td><form:input path="weight" /></td>
-
-        </tr>
-        <tr>
-            <td><input type="submit" value="Add patient" /></td>
-            <td><a href="${pageContext.request.contextPath}/patient/patientlist">
-                <input type="button" value="Cancel" /></td>
-            </a> 
-        </tr>
-
-    </table>
-</form:form>
+        <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Add patient" class="btn btn-default" />
+                <a href="${pageContext.request.contextPath}/patient/patientlist">
+                    <input type="button" value="Cancel" class="btn btn-default" />
+                </a> 
+            </div>
+        </div>
+    </form:form>
+</div>
 <%@ include file="../template/bottom.jsp" %>
