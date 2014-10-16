@@ -1,17 +1,26 @@
 <%-- 
     Document   : home
     Created on : Oct 12, 2014, 6:52:24 PM
-    Author     : Reserve
+    Author     : Tomas Slaman
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ include file="../template/top.jsp" %>
+
+<div class="metro">
+    <div class="grid">
+        <div class="tile triple double-vertical bg-darkRed">
+            <img src=""/>
+        </div>
+        <div class="tile triple double-vertical bg-darkRed"></div>
+        <div class="tile triple double-vertical bg-darkRed"></div>
+    </div>
+</div>
+
+<%@ include file="../template/bottom.jsp" %>
+
+<script src="../resources/js/metro/metro.min.js"></script>
+<link rel="stylesheet" href="../resources/css/metro-bootstrap.css"/>
