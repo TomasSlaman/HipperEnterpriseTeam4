@@ -40,3 +40,21 @@
     text-align: right;
     font-size: 10pt;
 }
+
+.weNoTextbox input[type=text]{
+    background:white;
+    cursor:default;
+    border:0;
+    opacity:1;
+    outline:none;
+    box-shadow: none;
+}
+
+.imNoTextbox{
+    background:white;
+    cursor:default;
+    border:2px solid white;
+    opacity:1;
+    outline:none;
+    box-shadow: none;
+}

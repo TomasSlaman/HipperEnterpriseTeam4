@@ -4,24 +4,6 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
 
-<%--<form:form class="form-horizontal" method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/add">
-
-    Firstname<form:input path="firstName" />
-    Lastname<form:input path="lastName" />
-    Email<form:input path="email" />
-    Password<form:input path="password" />
-    Address<form:input path="address" />
-    Postalcode<form:input path="postalCode" />
-    City<form:input path="city" />
-    Length<form:input path="length" />
-    Weight<form:input path="weight" />
-    <input type="submit" value="Add patient" />
-    <a href="${pageContext.request.contextPath}/patient/patientlist">
-        <input type="button" value="Cancel" />
-    </a> 
-
-
-</form:form>--%>
 <div class="container">
     <h2>Add Patient</h2>
     <form:form class="form-horizontal" role="form" method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/add">

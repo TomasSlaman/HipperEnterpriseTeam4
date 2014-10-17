@@ -11,7 +11,24 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         
         <script>
-            
+            function yayWeCanEdit(){
+                var form = $( "#awesomeForm" );
+                form.find('input[type=text]').each(function() {
+                    $( this ).removeAttr( "readonly" );
+                    $( this ).css("margin-bottom", "10px");
+                });
+                $( "#idField" ).attr( "readonly", "true");
+                $( "#idField" ).attr( "class", "imNoTextbox" );
+                form.removeClass( "weNoTextbox" );
+                
+                form.find( ".hise" ).each(function() {
+                   if( $( this ).css("display") == "none"){
+                       $( this ).css("display", "block");
+                   }else{
+                       $( this ).css("display", "none");
+                   };
+                });
+            }
         </script>
 
     </head>

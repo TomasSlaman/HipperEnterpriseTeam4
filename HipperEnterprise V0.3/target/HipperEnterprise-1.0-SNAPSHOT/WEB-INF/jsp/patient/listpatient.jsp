@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
 
-        <h2>This is the patientoverview </h2>
+        <h2>Patient Overview</h2>
          <h3>${message}</h3>
             <table class="table" border="1px" cellpadding="0" cellspacing="0">
                 <tr>
                     <td><strong> id</strong></td>
-                    <td><strong> Firstname </strong></td>
-                    <td><strong> Lastname </strong></td>
-                    <td><strong> Email </strong></td>
+                    <td><strong> First Name </strong></td>
+                    <td><strong> Last Name </strong></td>
+                    <td><strong> E-mail </strong></td>
                     <td><strong> Password </strong></td>
                     <td><strong> </strong></td>
                 </tr>
@@ -22,7 +22,7 @@
                         <td>${patient.email}</td>
                         <td>${patient.password}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/patient/edit/${patient.id}">Edit</a>
+                            <a href="${pageContext.request.contextPath}/patient/edit/${patient.id}">View</a>
                             <br/>
                             <a href="${pageContext.request.contextPath}/patient/delete/${patient.id}">Delete</a><br/>
                         </td>
