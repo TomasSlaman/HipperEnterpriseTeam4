@@ -37,4 +37,3 @@
 <script src="../resources/js/metro/jquery.widget.min.js"></script>
 <script src="../resources/js/metro/metro.min.js"></script>
 <link rel="stylesheet" href="../resources/css/metro-bootstrap.css"/>
-<link rel="stylesheet" href="../resources/css/metro-bootstrap-responsive.css"/>
