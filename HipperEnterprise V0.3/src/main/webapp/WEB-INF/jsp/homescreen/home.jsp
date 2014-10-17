@@ -12,15 +12,29 @@
 
 <div class="metro">
     <div class="grid">
-        <div class="tile triple double-vertical bg-darkRed">
-            <img src=""/>
-        </div>
-        <div class="tile triple double-vertical bg-darkRed"></div>
-        <div class="tile triple double-vertical bg-darkRed"></div>
+        <a class="tile double double-vertical bg-darkRed" data-click="transform">
+            <div class="tile-content"></div>
+        </a>
+        <a class="tile double double-vertical bg-darkRed" data-click="transform">
+            <div class="tile-content"></div>
+        </a>
+        <a class="tile double double-vertical bg-darkRed" data-click="transform">
+            <div class="tile-content"></div>
+        </a>
+        <a class="tile double double-vertical bg-darkRed" data-click="transform">
+            <div class="tile-content"></div>
+        </a>
+        <a class="tile double double-vertical bg-darkRed" data-click="transform">
+            <div class="tile-content"></div>
+        </a>
     </div>
 </div>
 
 <%@ include file="../template/bottom.jsp" %>
 
+<script src="../resources/js/metro/jquery.min.js"></script>
+<script src="../resources/js/metro/jquery.mousewheel.js"></script>
+<script src="../resources/js/metro/jquery.widget.min.js"></script>
 <script src="../resources/js/metro/metro.min.js"></script>
 <link rel="stylesheet" href="../resources/css/metro-bootstrap.css"/>
+<link rel="stylesheet" href="../resources/css/metro-bootstrap-responsive.css"/>
