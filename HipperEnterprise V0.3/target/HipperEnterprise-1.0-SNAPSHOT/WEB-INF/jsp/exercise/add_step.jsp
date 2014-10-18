@@ -1,7 +1,7 @@
 <%-- 
-    Document   : add_exercise
+    Document   : add_Step
     Created on : Oct 10, 2014, 3:17:55 PM
-    Author     : duytran
+    Author     : Christiaan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,24 +10,24 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
         <h2>${pageTitle}</h2>
-        <form:form method="POST" commandName="exercise" action="${pageContext.request.contextPath}/exercise/add" >
+        <form:form method="POST" commandName="exercise" action="${pageContext.request.contextPath}/exercise/addStep" >
             <table>
                 
                 <tr>
-                    <td> Exercise Title: </td>
-                    <td> <form:input path="exerciseName" /> </td>
+                    <td> Step name: </td>
+                    <td> <form:input path="stepName" /> </td>
                 </tr>
                 <tr>
-                    <td> Exercise duration: </td>
-                    <td> <form:input path="duration" /> </td>
+                    <td> Image or Video:</td>
+                    <td> <form:input path="img" /> </td>
                 </tr>
                 <tr>
-                    <td> <p>Exercise type: </p> </td>
-                    <td> <form:input path="exerciseType" /> </td>
+                    <td> <p>Additional Information:</p> </td>
+                    <td> <form:input path="information" /> </td>
                 </tr>
                 <tr>
-                    <td> <input type="submit" name="add" value="Add Exercise"/> </td>
-                    <td> <input type="submit" name="add" value="Add a step"/> </td>
+                    <td> <input type="submit" name="Add Step" value="Add Step"/> </td>
+                     <td> <input type="submit" value="Finish adding"/> </td>
                     <td><a href="${pageContext.request.contextPath}/exercise/list">
                 <input type="button" value="Cancel" /></td>
                 </tr>
