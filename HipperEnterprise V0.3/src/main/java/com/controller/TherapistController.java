@@ -5,11 +5,10 @@
  */
 package com.controller;
 
-import com.dao.TherapistDao;
 import com.model.TherapistUser;
-import com.service.PatientService;
 import com.service.TherapistService;
 import java.io.IOException;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +27,13 @@ public class TherapistController {
     private TherapistService therapistService;
 
     @RequestMapping(value = "/login")
-    public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) throws IOException {
+    public ModelAndView login(HttpSession session, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "password", required = false) String password) throws IOException {
         TherapistUser therapist = therapistService.getTherapist(email, password);
         ModelAndView mav = new ModelAndView("index");
+        
         if (therapist != null) {
+            session.setAttribute("therapist", therapist);
+            session.setAttribute("login", true);
             mav = new ModelAndView("homescreen/home");
         }
 
