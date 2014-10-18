@@ -33,7 +33,6 @@
 
     </head>
     <body class="page-container">
-
         <div class="col-md-2 container"></div>
         <div id="wrapper" class="container col-md-8" style="padding:0; background: #ffffff;">
             <nav class="navbar navbar-default" role="navigation">
