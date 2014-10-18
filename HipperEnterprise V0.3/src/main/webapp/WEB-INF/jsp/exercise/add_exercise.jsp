@@ -12,8 +12,9 @@
         <h2>${pageTitle}</h2>
         <form:form method="POST" commandName="exercise" action="${pageContext.request.contextPath}/exercise/add" >
             <table>
+                
                 <tr>
-                    <td> Exercise name: </td>
+                    <td> Exercise Title: </td>
                     <td> <form:input path="exerciseName" /> </td>
                 </tr>
                 <tr>
@@ -25,7 +26,8 @@
                     <td> <form:input path="exerciseType" /> </td>
                 </tr>
                 <tr>
-                    <td> <input type="submit" value="Add Exercise"/> </td>
+                    <td> <input type="submit" name="add" value="Add Exercise"/> </td>
+                    <td> <input type="submit" name="add" value="Add a step"/> </td>
                     <td><a href="${pageContext.request.contextPath}/exercise/list">
                 <input type="button" value="Cancel" /></td>
                 </tr>

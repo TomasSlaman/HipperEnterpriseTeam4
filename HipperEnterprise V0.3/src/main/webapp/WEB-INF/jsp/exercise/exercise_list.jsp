@@ -1,7 +1,7 @@
 <%-- 
     Document   : patient_list
     Created on : Oct 10, 2014, 9:39:18 PM
-    Author     : duytran
+    Author     : duytran + Christiaan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,16 +13,13 @@
         <c:choose>
             <c:when test="${exercises.size() != null}">
 
-                <table>
+                <table class="table" border="1px" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td>ID</td>
-                        <td>Exercise Name</td>
-                        <td>Exercise Duration</td>
-                        <td>Exercise Type</td>
+                        <th>ID</td>
+                        <th>Exercise Name</td>
+                        <th>Exercise Duration</td>
+                        <th>Exercise Type</td>
                     </tr>
-                </table>
-
-                <table border="1px" cellpadding="5" cellspacing="">
 
                     <c:forEach var="exercise" items="${exercises}">
                         <tr>
