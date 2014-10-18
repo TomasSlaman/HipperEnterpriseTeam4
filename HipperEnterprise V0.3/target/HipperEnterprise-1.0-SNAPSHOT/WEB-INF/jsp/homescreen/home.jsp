@@ -11,6 +11,11 @@
 <%@include file="../template/top.jsp" %>
 
 <div class="metro">
+    <div style="background: url(../resources/images/hip2.jpeg) top left no-repeat; background-size: cover; height: 300px;">
+        <div class="container" style="padding: 50px 20px">
+            <h1 class="fg-white">Welkom!</h1>
+        </div>
+    </div>
     <div class="container">
         <div class="grid fluid">
             <div class="tile-group">
@@ -54,6 +59,14 @@
                         <h2 class="fg-white no-margin">Profile Settings</h2>
                     </div>
                 </a>
+                    <a class="tile double double-vertical bg-darkTeal" href="${pageContext.request.contextPath}" data-click="transform">
+                    <div class="tile-content icon">
+                        <i class="icon-switch"></i>
+                    </div>
+                    <div class="tile-status padding10">
+                        <h2 class="fg-white no-margin">Log Out</h2>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -67,3 +80,8 @@
 <script src="../resources/js/metro/metro.min.js"></script>
 <link rel="stylesheet" href="../resources/css/metro-bootstrap.css"/>
 <link rel="stylesheet" href="../resources/css/iconFont.css" >
+<!-- Hieronder staan links voor de metro/ tile style die gebruikt is.
+http://metroui.org.ua/ 
+http://metroui.org.ua/start-screen.html# IS EEN VOORBEELD
+http://metroui.org.ua/tiles.html Basis tile info
+http://metroui.org.ua/icons.html Icon info, zijn ook te customizen.-->
