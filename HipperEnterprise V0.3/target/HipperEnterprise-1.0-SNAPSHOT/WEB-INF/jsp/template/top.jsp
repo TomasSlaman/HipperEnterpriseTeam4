@@ -7,18 +7,35 @@
         <title>Hipper</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" />
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />"    />
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         
         <script>
-            
+            function yayWeCanEdit(){
+                var form = $( "#awesomeForm" );
+                form.find('input[type=text]').each(function() {
+                    $( this ).removeAttr( "readonly" );
+                    $( this ).css("margin-bottom", "10px");
+                });
+                $( "#idField" ).attr( "readonly", "true");
+                $( "#idField" ).attr( "class", "imNoTextbox" );
+                form.removeClass( "weNoTextbox" );
+                
+                form.find( ".hise" ).each(function() {
+                   if( $( this ).css("display") == "none"){
+                       $( this ).css("display", "block");
+                   }else{
+                       $( this ).css("display", "none");
+                   };
+                });
+            }
         </script>
 
     </head>
-    <body>
-
+    <body class="page-container">
         <div class="col-md-2 container"></div>
-        <div id="wrapper" class="container col-md-8" style="padding:0;">
+        <div id="wrapper" class="container col-md-8" style="padding:0; background: #ffffff;">
             <nav class="navbar navbar-default" role="navigation">
               <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->

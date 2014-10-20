@@ -1,3 +1,7 @@
+.modal-footer { 
+    border-top: 0px; 
+}
+
 .page-container {
     overflow: auto;
     background: url(../images/farmer.jpg) no-repeat 0px 0px;
@@ -21,8 +25,11 @@
 }
 
 #wrapper{
-    margin-top: 30px;
+    margin-top: 30px;   
+    display: block;     
     box-shadow: 0 0 100px #888888;
+    //background: #ffffff;
+    //opacity: 0.5;
 }
 
 #menu{
@@ -31,7 +38,7 @@
 }
 
 #main{
-    height: 800px;
+    height: 100%;
 }
 
 #footer {
@@ -39,4 +46,22 @@
     background: lightgray;
     text-align: right;
     font-size: 10pt;
+}
+
+.weNoTextbox input[type=text]{
+    background:white;
+    cursor:default;
+    border:0;
+    opacity:1;
+    outline:none;
+    box-shadow: none;
+}
+
+.imNoTextbox{
+    background:white;
+    cursor:default;
+    border:2px solid white;
+    opacity:1;
+    outline:none;
+    box-shadow: none;
 }

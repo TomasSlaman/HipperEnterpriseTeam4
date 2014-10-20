@@ -1,3 +1,10 @@
+
+<%-- 
+    Document   : patient_list
+    Created on : Oct 10, 2014, 9:39:18 PM
+    Author     : duytran + Christiaan
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,13 +18,10 @@
             <tr>
                 <td width="5%"><strong>ID</strong></td>
                 <td><strong>Exercise Name</strong></td>
-                <td><strong>Exercise Duration</strong></td>
+               <td><strong>Exercise Duration</strong></td>
                 <td><strong>Exercise Type</strong></td>
                 <td width="15%"><strong></strong></td>
             </tr>
-        
-
-
 
             <c:forEach var="exercise" items="${exercises}">
                 <tr>

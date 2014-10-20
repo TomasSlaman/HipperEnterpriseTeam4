@@ -4,64 +4,81 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
 
-        <h2>${paginaTitel}</h2>
-        <form:form method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/edit">
-            
-            <table>
-                <tr>
-                    <td>Id</td>
-                    <td><form:input path="id" readonly="true" /></td>
-                </tr>
-                <tr>
-                    <td>Firstname</td>
-                    <td><form:input path="firstName" /></td>
+<h2></h2>
 
-                </tr>
-                <tr>
-                    <td>Lastname</td>
-                    <td><form:input path="lastName" /></td>
-
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td><form:input path="email" /></td>
-
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td><form:input path="password" /></td>
-
-                </tr>
-                <tr>
-                    <td>Address</td>
-                    <td><form:input path="address" /></td>
-
-                </tr>
-                <tr>
-                    <td>Postalcode</td>
-                    <td><form:input path="postalCode" /></td>
-
-                </tr>
-                <tr>
-                    <td>City</td>
-                    <td><form:input path="city" /></td>
-
-                </tr>
-                <tr>
-                    <td>Length</td>
-                    <td><form:input path="length" /></td>
-
-                </tr>
-                <tr>
-                    <td>Weight</td>
-                    <td><form:input path="weight" /></td>
-
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Edit patient" /></td>
-                    <td><a href="${pageContext.request.contextPath}/patient/patientlist">
-                        <input type="button" value="Cancel" /></td>
-                </tr>
-            </table>
-        </form:form>
+<form:form method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/edit" id="awesomeForm" class="weNoTextbox">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="id">Id:</label>
+        <div class="col-sm-10">
+            <form:input path="id" id="idField" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="firstName">First name:</label>
+        <div class="col-sm-10">
+            <form:input path="firstName" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="LastName">Last name:</label>
+        <div class="col-sm-10">          
+            <form:input path="lastName" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="email">E-mail:</label>
+        <div class="col-sm-10">
+            <form:input path="email" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="password">Password:</label>
+        <div class="col-sm-10">
+            <form:input path="password" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="address">Address:</label>
+        <div class="col-sm-10">
+            <form:input path="address" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="postalCode">Postal code:</label>
+        <div class="col-sm-10">
+            <form:input path="postalCode" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="city">City:</label>
+        <div class="col-sm-10">
+            <form:input path="city" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="length">Length:</label>
+        <div class="col-sm-10">
+            <form:input path="length" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="weight">Weight:</label>
+        <div class="col-sm-10">
+            <form:input path="weight" class="form-control" readonly="true" />
+        </div>
+    </div>
+    <div class='col-sm-2'>
+        <button type="button" class='btn btn-default hise' onClick="yayWeCanEdit()"><span class="glyphicon glyphicon-pencil"> </span> Edit</button>
+    </div>
+    <div class="form-group">        
+        <div class=" col-sm-1">
+            <input type="submit" value="Edit patient" class="btn btn-default hise" style="display:none;" />
+        </div>
+        <div class="col-sm-7">
+            <a href="${pageContext.request.contextPath}/patient/patientlist">
+                <input type="button" value="Cancel" class="btn btn-default hise" style="display:none;" />
+            </a> 
+        </div>
+    </div>
+</form:form>
 <%@ include file="../template/bottom.jsp" %>
