@@ -71,10 +71,10 @@
         <button type="button" class='btn btn-default hise' onClick="yayWeCanEdit()"><span class="glyphicon glyphicon-pencil"> </span> Edit</button>
     </div>
     <div class="form-group">        
-        <div class=" col-sm-1">
+        <div class="col-sm-2">
             <input type="submit" value="Edit patient" class="btn btn-default hise" style="display:none;" />
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-1">
             <a href="${pageContext.request.contextPath}/patient/patientlist">
                 <input type="button" value="Cancel" class="btn btn-default hise" style="display:none;" />
             </a> 

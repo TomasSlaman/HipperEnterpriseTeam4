@@ -7,34 +7,32 @@
         <title>Hipper</title>
         <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" />
     </head>
-    <body>
+    <body>      
+        <div id="loginModal" class="modal show page-container" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
 
-      
-            <div id="loginModal" class="modal show page-container" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
- 
-                            <h1 class="text-center">Login</h1>
-                        </div>
-                        <div class="modal-body">
-                            <form id="login-form" class="form col-md-12 center-block" method="POST" action="${pageContext.request.contextPath}/therapist/login">
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-lg" name="email" placeholder="Email" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control input-lg" name="password" placeholder="Password" required>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary btn-lg btn-block" name="submit">Sign In</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
+                        <h1 class="text-center">Login</h1>
+                    </div>
+                    <div class="modal-body">
+                        <form id="login-form" class="form col-md-12 center-block" method="POST" action="${pageContext.request.contextPath}/homescreen/">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control input-lg" name="password" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-lg btn-block" name="submit">Sign In</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
+        </div>
 
         <!--        <div class="page-container">
                     <div class="left-container">

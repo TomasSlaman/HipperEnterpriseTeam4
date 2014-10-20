@@ -9,11 +9,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@include file="../template/top.jsp" %>
-
 <div class="metro">
     <div style="background: url(../resources/images/hip2.jpeg) top left no-repeat; background-size: cover; height: 300px;">
         <div class="container" style="padding: 50px 20px">
-            <h1 class="fg-white">Welkom!</h1>
+            <h1 class="fg-white">Welkom ${therapist.getFirstName()}!</h1>
         </div>
     </div>
     <div class="container">
@@ -59,7 +58,7 @@
                         <h2 class="fg-white no-margin">Profile Settings</h2>
                     </div>
                 </a>
-                    <a class="tile double double-vertical bg-darkTeal" href="${pageContext.request.contextPath}" data-click="transform">
+                    <a class="tile double double-vertical bg-darkTeal" href="${pageContext.request.contextPath}/logout" data-click="transform">
                     <div class="tile-content icon">
                         <i class="icon-switch"></i>
                     </div>

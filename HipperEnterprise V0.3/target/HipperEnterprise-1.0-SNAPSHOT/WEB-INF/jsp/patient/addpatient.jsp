@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
 
-<div class="container">
+<div class="form-field">
     <h2>Add Patient</h2>
     <form:form class="form-horizontal" role="form" method="POST" commandName="patient" action="${pageContext.request.contextPath}/patient/add">
         <div class="form-group">

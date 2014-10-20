@@ -11,7 +11,7 @@
 <%@ include file="../template/top.jsp" %>
         <h2>${pageTitle}</h2>
         <form:form method="POST" commandName="exercise" action="${pageContext.request.contextPath}/exercise/add" >
-            <table>
+            <table class="form-horizontal">
                 
                 <tr>
                     <td> Exercise Title: </td>
