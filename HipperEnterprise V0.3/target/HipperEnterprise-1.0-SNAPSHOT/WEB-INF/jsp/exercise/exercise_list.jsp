@@ -38,8 +38,11 @@
                         ${exercise.exerciseType}
                     </td>
                     <td>
-                        <button><a href="${pageContext.request.contextPath}/exercise/edit/${exercise.exerciseId}">Edit</a></button>
-                        <button><a href="${pageContext.request.contextPath}/exercise/delete/${exercise.exerciseId}">Delete</a><br/></button>
+                        
+                        <a href="${pageContext.request.contextPath}/exercise/edit/${exercise.exerciseId}"><button>Edit</button></a>
+                        <a href="${pageContext.request.contextPath}/exercise/delete/${exercise.exerciseId}"><button>Delete</button></a>
+<!--                        <button><a href="${pageContext.request.contextPath}/exercise/edit/${exercise.exerciseId}">Edit</a></button>
+                        <button><a href="${pageContext.request.contextPath}/exercise/delete/${exercise.exerciseId}">Delete</a><br/></button>-->
                     </td>
                 </tr>
             </c:forEach>
