@@ -53,6 +53,7 @@
     </c:otherwise>
 </c:choose>
         
-        <div align="right"><button><a href="${pageContext.request.contextPath}/exercise/add">Add exercise</a></button></div>
+<!--        <div align="right"><button><a href="${pageContext.request.contextPath}/exercise/add">Add exercise</a></button></div>-->
+        <div align="right"><a href="${pageContext.request.contextPath}/exercise/add"><button>Add exercise</button></a></div>
 <br>
 <%@ include file="../template/bottom.jsp" %>
