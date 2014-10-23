@@ -83,7 +83,7 @@ public class TherapistController {
     public ModelAndView edit(@ModelAttribute("therapist") TherapistUser therapist) {
 
         ModelAndView therapistlistView = new ModelAndView("/therapist/listtherapist");
-        therapistService.updatePatient(therapist);
+        therapistService.updateTherapist(therapist);
         List<TherapistUser> therapists = therapistService.getTherapists();
         therapistlistView.addObject("therapists", therapists);
 
@@ -94,7 +94,7 @@ public class TherapistController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deletePatient(@PathVariable Long id) {
+    public ModelAndView deleteTherapist(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("/therapist/listtherapist");
         therapistService.deleteTherapist(id);
         List<TherapistUser> therapists = therapistService.getTherapists();
