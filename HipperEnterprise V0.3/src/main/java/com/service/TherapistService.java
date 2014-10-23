@@ -5,7 +5,7 @@
  */
 package com.service;
 
-import com.dao.PatientDao;
+
 import com.dao.TherapistDao;
 import com.model.TherapistUser;
 import java.util.List;
@@ -28,7 +28,7 @@ public class TherapistService {
         therapistDAO.addTherapist(therapist);
     }
 
-    public void updatePatient(TherapistUser therapist) {
+    public void updateTherapist(TherapistUser therapist) {
         therapistDAO.updateTherapist(therapist);
     }
 
@@ -48,7 +48,7 @@ public class TherapistService {
         return therapistDAO.getTherapists();
     }
 
-    public void storeAllPatients(List<TherapistUser> therapists) {
+    public void storeAllTherapists(List<TherapistUser> therapists) {
 
         therapistDAO.storeAllTherapists(therapists);
 

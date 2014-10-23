@@ -43,6 +43,9 @@ public class TherapistDao {
         therapistToUpdate.setAddress(therapist.getAddress());
         therapistToUpdate.setPostalCode(therapist.getPostalCode());
         therapistToUpdate.setCity(therapist.getCity());
+        therapistToUpdate.setFirm(therapist.getFirm());
+        therapistToUpdate.setOccupation(therapist.getOccupation());
+        therapistToUpdate.setRole(therapist.getRole());
         getCurrentSession().update(therapistToUpdate);
     }
 

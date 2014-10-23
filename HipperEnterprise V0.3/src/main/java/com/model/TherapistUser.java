@@ -11,18 +11,21 @@ import javax.persistence.Table;
 @Table(name = "Therapist")
 public class TherapistUser extends User {
     
-    @Column(name = "occupation", nullable = false) 
+    @Column(name = "occupation", nullable = true) 
     private String occupation;
-    @Column(name = "firm", nullable = false) 
+    @Column(name = "firm", nullable = true) 
     private String firm;
+    @Column(name = "role", nullable = true) 
+    private String role;
 
     public TherapistUser() {
     }
 
-    public TherapistUser(String occupation, String firm, long id, String firstname, String lastname, String email, String password, String addres, String postalCode, String city) {
+    public TherapistUser(String occupation, String firm, long id, String firstname, String lastname, String email, String password, String addres, String postalCode, String city, String role) {
         super(id, firstname, lastname, email, password, addres, postalCode, city);
         this.occupation = occupation;
         this.firm = firm;
+        this.role = role;
     }
 
     public String getOccupation() {
@@ -40,5 +43,15 @@ public class TherapistUser extends User {
     public void setFirm(String firm) {
         this.firm = firm;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
+    
 
 }

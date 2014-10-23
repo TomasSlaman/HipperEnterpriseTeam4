@@ -1,8 +1,0 @@
-#surefire
-#Sat Oct 18 12:22:52 CEST 2014
-maven.ext.class.path=C\:\\Program Files\\NetBeans 8.0.1\\java\\maven-nblib\\netbeans-eventspy.jar
-user.dir=C\:\\Users\\Christiaaan\\Documents\\GitHub\\HipperEnterpriseTeam4\\HipperEnterprise V0.3
-file.encoding=UTF-8
-localRepository=C\:\\Users\\Christiaaan\\.m2\\repository
-netbeans.deploy=true
-basedir=C\:\\Users\\Christiaaan\\Documents\\GitHub\\HipperEnterpriseTeam4\\HipperEnterprise V0.3

@@ -11,9 +11,9 @@ import javax.persistence.Table;
 @Table(name = "Patient")
 public class PatientUser extends User{
 
-@Column(name = "length", nullable = false) 
+@Column(name = "length", nullable = true) 
 private String length;
-@Column(name = "weight", nullable = false)
+@Column(name = "weight", nullable = true)
 private String weight;
 
     public PatientUser(String length, String weight, long id, String firstname, String lastname, String email, String password, String addres, String postalCode, String city) {

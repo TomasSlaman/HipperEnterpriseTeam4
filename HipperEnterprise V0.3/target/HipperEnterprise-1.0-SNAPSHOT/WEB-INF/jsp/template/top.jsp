@@ -69,6 +69,13 @@
                         <li><a href="#">Manage Account</a></li>
                       </ul>
                     </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Therapist management</a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="${pageContext.request.contextPath}/therapist/therapistlist">Therapist Overview</a></li>
+                        <li><a href="${pageContext.request.contextPath}/therapist/add">Add Therapist</a></li>
+                      </ul>
+                    </li>
                   </ul>
                   
                 </div><!-- /.navbar-collapse -->
