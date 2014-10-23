@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
         <h2>${pageTitle}</h2>
-        <form:form method="POST" commandName="exercise" action="${pageContext.request.contextPath}/exercise/add" >
+        <form:form class="form-horizontal" method="POST" commandName="exercise" action="${pageContext.request.contextPath}/exercise/add" >
      <div class="form-group">
             <label class="control-label col-sm-2" for="firstName">Exercise Title: </label>
             <div class="col-sm-10">
