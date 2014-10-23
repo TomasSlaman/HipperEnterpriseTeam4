@@ -64,7 +64,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="role">Role:</label>
             <div class="col-sm-10">
-                <form:select path="role">
+                <form:select path="role" class="form-control">
                                 <form:option value="normal">Normal</form:option>
                                 <form:option value="admin">Administrator</form:option>
                             </form:select>

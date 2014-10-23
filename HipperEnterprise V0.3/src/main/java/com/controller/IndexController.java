@@ -19,5 +19,10 @@ public class IndexController {
         session.invalidate();
         return new ModelAndView("index");
     }
+    
+    @RequestMapping(value = "/")
+    public ModelAndView slashIndex(){
+        return new ModelAndView("index");
+    }
 
 }
