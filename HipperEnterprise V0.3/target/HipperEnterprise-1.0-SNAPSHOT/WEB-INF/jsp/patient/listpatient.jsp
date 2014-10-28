@@ -36,6 +36,6 @@
 </table>
 
 <!--<div align="right"><button><a href="${pageContext.request.contextPath}/patient/add">Add patient</a></button></div>-->
-<div align="right"><a href="${pageContext.request.contextPath}/patient/add"><button>Add exercise</button></a></div>
+<div align="right"><a href="${pageContext.request.contextPath}/patient/add"><button>Add patient</button></a></div>
 
 <%@ include file="../template/bottom.jsp" %>
