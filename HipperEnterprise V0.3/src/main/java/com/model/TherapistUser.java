@@ -2,6 +2,7 @@ package com.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -9,6 +10,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Therapist")
+@PrimaryKeyJoinColumn(name="id")
 public class TherapistUser extends User {
     
     @Column(name = "occupation", nullable = true) 
