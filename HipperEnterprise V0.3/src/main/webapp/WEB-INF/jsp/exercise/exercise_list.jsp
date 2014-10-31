@@ -20,6 +20,7 @@
                 <td><strong>Exercise Name</strong></td>
                <td><strong>Exercise Duration</strong></td>
                 <td><strong>Exercise Type</strong></td>
+                <td><strong>Exercise Description</strong></td>
                 <td width="15%"><strong></strong></td>
             </tr>
 
@@ -36,6 +37,9 @@
                     </td>
                     <td>
                         ${exercise.exerciseType}
+                    </td>
+                    <td>
+                        ${exercise.description}
                     </td>
                     <td>
                         

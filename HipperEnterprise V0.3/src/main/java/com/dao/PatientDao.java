@@ -5,6 +5,7 @@
  */
 package com.dao;
 
+import com.model.Exercise;
 import com.model.PatientUser;
 import java.util.List;
 import org.hibernate.Session;
@@ -42,6 +43,7 @@ public class PatientDao {
         patientToUpdate.setCity(patient.getCity());
         patientToUpdate.setLength(patient.getLength());
         patientToUpdate.setWeight(patient.getWeight());
+        patientToUpdate.setExcersises(patient.getExcersises());
         getCurrentSession().update(patientToUpdate);
     }
     
@@ -56,6 +58,15 @@ public class PatientDao {
             getCurrentSession().delete(patient);
         }
     }
+     
+     public void addExercises(long id, List<Exercise> exercises) {
+         
+         PatientUser patient = getPatient(id);
+         
+         
+         
+         
+     }
      
    @SuppressWarnings("unchecked")
     public List<PatientUser> getPatients() {

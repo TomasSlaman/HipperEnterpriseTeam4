@@ -36,7 +36,9 @@ public class ExerciseDAO {
         exToUpdate.setExerciseName(ex.getExerciseName());
         exToUpdate.setDuration(ex.getDuration());
         exToUpdate.setExerciseType(ex.getExerciseType());
-
+        exToUpdate.setDescription(ex.getDescription());
+        exToUpdate.setPatients(ex.getPatients());
+        
         getCurrentSession().update(exToUpdate);
 
     }
