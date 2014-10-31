@@ -18,8 +18,6 @@
 
         <form:hidden path="id"/>
 
-
-
     </form:form>
 
     <form action="${pageContext.request.contextPath}/patient/addexercise/${patient.id}" method="POST">
