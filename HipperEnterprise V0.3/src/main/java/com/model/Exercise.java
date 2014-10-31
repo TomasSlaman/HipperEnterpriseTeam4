@@ -7,11 +7,19 @@
 package com.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -33,7 +41,15 @@ public class Exercise implements Serializable {
     private double duration;
     @Column(name = "exerciseType", nullable = false)
     private String exerciseType;
-    
+    @Column(name = "description", nullable = false)
+    private String description;
+ 
+    @ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="patient_has_execise"
+		,joinColumns=@JoinColumn(name="exercise_id")
+		,inverseJoinColumns=@JoinColumn(name="patient_id"))
+    private List<PatientUser> patients = new ArrayList();
+
     public Exercise() {
         
     }
@@ -81,5 +97,25 @@ public class Exercise implements Serializable {
         }
         this.exerciseType = exerciseType;
     }
-  
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        if (description == null) {
+            throw new NullPointerException("Description field may not be empty");
+        }
+        this.description = description;
+
+    }
+
+    public List<PatientUser> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<PatientUser> patients) {
+        this.patients = patients;
+    }
+
 }

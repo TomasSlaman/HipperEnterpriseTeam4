@@ -74,6 +74,11 @@
         <div class="col-sm-2">
             <input type="submit" value="Edit patient" class="btn btn-default hise" style="display:none;" />
         </div>
+        <div class ='position:relative'>
+            <a href="${pageContext.request.contextPath}/patient/addexercise/${patient.id}">             
+                 <input type="button" value="Add Exercise" class="btn btn-default hise " />    
+            </a>
+        </div>
         <div class="col-sm-1">
             <a href="${pageContext.request.contextPath}/patient/patientlist">
                 <input type="button" value="Cancel" class="btn btn-default hise" style="display:none;" />

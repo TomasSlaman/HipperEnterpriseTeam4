@@ -5,10 +5,15 @@
  */
 package com.controller;
 
+import com.editor.ExerciseEditor;
+import com.model.Exercise;
 import com.model.PatientUser;
+import com.service.ExerciseService;
 import com.service.PatientService;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -29,6 +35,14 @@ public class PatientController {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private ExerciseService exerciseService;
+
+    @ModelAttribute("exercises")
+    public List<Exercise> populateOfferedCourses() {
+        return exerciseService.getExercises();
+    }
 
     private static String titleNew = "New patient";
     private static String titleEdit = "Edit patient";
@@ -101,6 +115,46 @@ public class PatientController {
         String message = "Patient was successfully deleted.";
         modelAndView.addObject("message", message);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.GET)
+    public ModelAndView addExerciseToPatientView(@PathVariable Long id) {
+
+        ModelAndView addExerciseView = new ModelAndView("/patient/addexercisetopatient");
+
+        PatientUser currentPatient = patientService.getPatient(id);
+        List<Exercise> ex = exerciseService.getExercises();
+        addExerciseView.addObject("patient", currentPatient);
+
+        addExerciseView.addObject("exercises", ex);
+
+        return addExerciseView;
+
+    }
+
+    @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
+    public ModelAndView patientView(HttpServletRequest request, @PathVariable Long id, @ModelAttribute PatientUser patient) {
+
+        ModelAndView patientView = new ModelAndView("patient/editpatient");
+        patient = patientService.getPatient(id);
+
+        List<Exercise> exercises = patient.getExcersises();
+
+        String[] ids = new String[4];
+
+        for (int i = 0; i < ids.length; i++) {
+
+            ids[i] = request.getParameter("exercises".concat(Integer.toString(i + 1)));
+            Exercise ex = exerciseService.getExercise(Long.parseLong(ids[i]));
+            exercises.add(ex);
+
+        }
+
+        patientService.updatePatient(patient);
+        patientView.addObject("patient", patient);
+
+        return patientView;
+
     }
 
 }
