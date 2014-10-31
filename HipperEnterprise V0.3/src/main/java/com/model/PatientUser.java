@@ -27,11 +27,11 @@ public class PatientUser extends User{
     @Column(name = "weight", nullable = true)
     private String weight;
     
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="patient_has_execise"
 		,joinColumns=@JoinColumn(name="patient_id")
 		,inverseJoinColumns=@JoinColumn(name="exercise_id"))
-    private List<Exercise> excersises;
+    private List<Exercise> excersises = new ArrayList();
 
 
     public PatientUser(String length, String weight, long id, String firstname, String lastname, String email, String password, String addres, String postalCode, String city) {

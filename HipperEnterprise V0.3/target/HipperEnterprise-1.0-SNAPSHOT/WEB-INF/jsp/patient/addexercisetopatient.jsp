@@ -12,6 +12,7 @@
 <div class="form-field">
 
     <h2>Add some exercises</h2>  
+    <h2>${message}</h2>
 
     <form:form action="${pageContext.request.contextPath}/patient/addexercise/${patient.id}" method="POST" commandName="patient">
 
@@ -22,7 +23,19 @@
     </form:form>
 
     <form action="${pageContext.request.contextPath}/patient/addexercise/${patient.id}" method="POST">
-        <form:select path="exercises">
+        <form:select name="exercises1" path="exercises">
+            <form:option value="0">Selecteer een rol</form:option>
+            <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
+        </form:select>
+            <form:select name="exercises2" path="exercises">
+            <form:option value="0">Selecteer een rol</form:option>
+            <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
+        </form:select>
+            <form:select name="exercises3" path="exercises">
+            <form:option value="0">Selecteer een rol</form:option>
+            <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
+        </form:select>
+            <form:select name="exercises4" path="exercises">
             <form:option value="0">Selecteer een rol</form:option>
             <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
         </form:select>
