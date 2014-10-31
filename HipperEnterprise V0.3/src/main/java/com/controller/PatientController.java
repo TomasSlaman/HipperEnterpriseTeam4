@@ -38,16 +38,15 @@ public class PatientController {
     @Autowired 
     private ExerciseService exerciseService;
     
-    @Autowired
-    private ExerciseEditor exEditor;
+    @ModelAttribute("exercises")
+	public List<Exercise> populateOfferedCourses(){
+		return exerciseService.getExercises();
+	}
 
     private static String titleNew = "New patient";
     private static String titleEdit = "Edit patient";
     
-     @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Exercise.class, this.exEditor);
-    }
+
 
     @RequestMapping(value = "/patientlist")
     public ModelAndView patientlist() throws IOException {
