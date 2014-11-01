@@ -88,6 +88,9 @@ public class PatientController {
         PatientUser patient = patientService.getPatient(id);
         patientEditView.addObject("pageTitle", titleEdit);
         patientEditView.addObject("patient", patient);
+        
+        List<Exercise> patientexercises = patient.getExcersises();
+        patientEditView.addObject("patientexercises", patientexercises);
 
         return patientEditView;
     }
@@ -155,6 +158,23 @@ public class PatientController {
 
         return patientView;
 
+    }
+    
+    
+    //View graph controller
+    
+   @RequestMapping(value = "/viewgraph/{id}", method = RequestMethod.GET)
+    public ModelAndView viewGraph(@PathVariable Long id) {
+
+        ModelAndView patientEditView = new ModelAndView("/patient/viewgraph");
+        PatientUser patient = patientService.getPatient(id);
+        patientEditView.addObject("pageTitle", titleEdit);
+        patientEditView.addObject("patient", patient);
+        
+        List<Exercise> patientexercises = patient.getExcersises();
+        patientEditView.addObject("patientexercises", patientexercises);
+
+        return patientEditView;
     }
 
 }
