@@ -37,7 +37,7 @@ public class HomescreenController {
             session.setAttribute("therapist", therapist);
             mav = new ModelAndView("homescreen/home");
         }
-
+        Global.GlobalVariables.setSession(session);
         return mav;
 
     }

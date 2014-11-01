@@ -1,5 +1,6 @@
 package com.model;
 
+import com.service.TherapistService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +27,16 @@ public class PatientUser extends User{
     private String length;
     @Column(name = "weight", nullable = true)
     private String weight;
+    @Column(name="TherapistUser", nullable=true)
+    private int TherapistUser;
+
+    public int getTherapistUser() {
+        return TherapistUser;
+    }
+
+    public void setTherapistUser(int TherapistUser) {
+        this.TherapistUser = TherapistUser;
+    }
     
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="patient_has_execise"
