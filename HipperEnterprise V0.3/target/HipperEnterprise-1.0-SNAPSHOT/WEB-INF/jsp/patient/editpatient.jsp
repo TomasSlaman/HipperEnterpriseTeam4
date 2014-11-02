@@ -76,7 +76,7 @@
         </div>
         <div class ='position:relative'>
             <a href="${pageContext.request.contextPath}/patient/addexercise/${patient.id}">             
-                 <input type="button" value="Add Exercise" class="btn btn-default hise " />    
+                <input type="button" value="Add Exercise" class="btn btn-default hise " />    
             </a>
         </div>
         <div class="col-sm-1">
@@ -87,29 +87,32 @@
     </div>
 </form:form>
 
-<table class="table table-striped table-bordered">
-    <caption><strong>List of Exercises</strong></caption>
-    <tr>
-        <td width="5%"><strong> id</strong></td>
-        <td><strong> Exercise </strong></td>
-        <td><strong> Description </strong></td>
-        <td width="15%"><strong> </strong></td>
-    </tr>
-    <c:forEach var="patientexercises" items="${patientexercises}">
-        <tr>
-            <td>${patientexercises.exerciseId}</td>
-            <td>${patientexercises.exerciseName}</td>
-            <td>${patientexercises.description}</td>
-            description
-            <td>
-                <div align="center">
-                    <a href="${pageContext.request.contextPath}/patient/viewgraph/${patientexercises.exerciseId}"><button>View</button></a>
-                    <a href=""><button>Delete</button></a>
-                </div>
-            </td>
-        </tr> 
 
-    </c:forEach>
-</table>
+
+<table class="table table-striped table-bordered">
+        <caption><strong>List of Exercises</strong></caption>
+        <tr>
+            <td width="5%"><strong> id </strong></td>
+            <td><strong> Exercise </strong></td>
+            <td><strong> Description </strong></td>
+            <td width="15%"><strong> </strong></td>
+        </tr>
+        <c:forEach var="patientexercises" items="${patientexercises}">
+            <tr>
+                <td>${patientexercises.exerciseId}</td>
+                <td>${patientexercises.exerciseName}</td>
+                <td>${patientexercises.description}</td>
+                description
+                <td>
+                    <div align="center">
+                        <a href="${pageContext.request.contextPath}/patient/viewgraph/${patientexercises.exerciseId}"><button>View</button></a>
+                        <a href=""><button>Delete</button></a>
+                    </div>
+                </td>
+            </tr> 
+
+        </c:forEach>
+    </table>     
+
 
 <%@ include file="../template/bottom.jsp" %>

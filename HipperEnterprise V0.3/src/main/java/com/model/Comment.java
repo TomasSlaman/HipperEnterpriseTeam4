@@ -30,9 +30,9 @@ public class Comment implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long CommentId;
     @Column(name = "exersiseId", nullable = false)  
-    private int exersiseId;
+    private long exersiseId;
     @Column(name = "patientId", nullable = false)  
-    private int patientId;
+    private long patientId;
     @Column(name = "comment", nullable = false)  
     private String comment;
     @Column(name = "date", nullable = false)  
@@ -41,7 +41,7 @@ public class Comment implements Serializable{
     public Comment() {
     }
 
-    public Comment(long CommentId, int exersiseId, int patientId, String comment, String date) {
+    public Comment(long CommentId, long exersiseId, long patientId, String comment, String date) {
         this.CommentId = CommentId;
         this.exersiseId = exersiseId;
         this.patientId = patientId;
@@ -49,11 +49,11 @@ public class Comment implements Serializable{
         this.date = dateSetter();
     }
 
-    public int getPatientId() {
+    public long getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(int patientId) {
+    public void setPatientId(long patientId) {
         this.patientId = patientId;
     }
 
@@ -65,11 +65,11 @@ public class Comment implements Serializable{
         this.CommentId = CommentId;
     }
 
-    public int getExersiseId() {
+    public long getExersiseId() {
         return exersiseId;
     }
 
-    public void setExersiseId(int exersiseId) {
+    public void setExersiseId(long exersiseId) {
         this.exersiseId = exersiseId;
     }
 
@@ -92,15 +92,14 @@ public class Comment implements Serializable{
     }
     
     private String dateSetter(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         Date date;
         String dateformat = "";
         try {
-            date = sdf.parse("2014-10-30 00:00:00.0");
-            sdf.applyPattern("dd-MMM-yyyy");
+            date = new Date();
             dateformat = sdf.format(date);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

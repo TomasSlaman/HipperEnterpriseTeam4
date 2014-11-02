@@ -6,8 +6,10 @@
 package com.controller;
 
 import com.editor.ExerciseEditor;
+import com.model.Comment;
 import com.model.Exercise;
 import com.model.PatientUser;
+import com.service.CommentService;
 import com.service.ExerciseService;
 import com.service.PatientService;
 import java.io.IOException;
@@ -38,6 +40,9 @@ public class PatientController {
 
     @Autowired
     private ExerciseService exerciseService;
+    
+    @Autowired
+    private CommentService commentService;
 
     @ModelAttribute("exercises")
     public List<Exercise> populateOfferedCourses() {
@@ -46,7 +51,7 @@ public class PatientController {
 
     private static String titleNew = "New patient";
     private static String titleEdit = "Edit patient";
-    private static String titlePatientExercise = "View Patient Exercise";
+    private static String titlePatientExercise = "Results Patient";
 
     @RequestMapping(value = "/patientlist")
     public ModelAndView patientlist() throws IOException {
@@ -166,14 +171,57 @@ public class PatientController {
     public ModelAndView viewGraphPage(@PathVariable Long id) {
 
         ModelAndView patientViewGraph = new ModelAndView("/patient/viewgraph");
-        PatientUser patient = patientService.getPatient(id);
+        
+        // exercise information
+        Exercise exercise = exerciseService.getExercise(id);
+        patientViewGraph.addObject("exercise", exercise);
+        
+        // comment section
+        //             - new comment
+        Comment comment = new Comment();
+        comment.setExersiseId(id);
+        comment.setPatientId(1);
+        patientViewGraph.addObject("comment", new Comment());
+        
+        //             - list of comments
+        List<Comment> comments = commentService.getComments();
+        patientViewGraph.addObject("comments", comments);
+        
+        // title of the page
         patientViewGraph.addObject("pageTitle", titlePatientExercise);
-        patientViewGraph.addObject("patient", patient);
-        
-        
-
         return patientViewGraph;
     }
+    
+     @RequestMapping(value = "/viewgraph/{id}", method = RequestMethod.POST)
+    public ModelAndView viewGraphPageCommentAdd(@PathVariable Long id, @ModelAttribute Comment comment) {
 
+        ModelAndView AddComment = new ModelAndView("/patient/viewgraph");
+        
+        
+         comment.setDate();
+         System.out.println(comment.getComment());
+         System.out.println(comment.getDate());
+         
+        commentService.addComment(comment);
+        
+        List<Comment> comments = commentService.getComments();
+        AddComment.addObject("comments", comments);
+        
+        Exercise exercise = exerciseService.getExercise(id);
+        AddComment.addObject("exercise", exercise);
 
+        return AddComment;
+
+    }
+    
+    @RequestMapping(value = "/deletecomment/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteComment(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("/patient/listpatient");
+        commentService.deleteComment(id);
+        List<PatientUser> patients = patientService.getPatients();
+        modelAndView.addObject("patients", patients);
+        String message = "Comment was successfully deleted.";
+        modelAndView.addObject("message", message);
+        return modelAndView;
+    }
 }

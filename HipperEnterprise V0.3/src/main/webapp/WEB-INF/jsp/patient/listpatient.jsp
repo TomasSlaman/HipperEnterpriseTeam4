@@ -26,8 +26,6 @@
                 <div align="center">
                     <a href="${pageContext.request.contextPath}/patient/edit/${patient.id}"><button>View</button></a>
                     <a href="${pageContext.request.contextPath}/patient/delete/${patient.id}"><button>Delete</button></a>
-                    <!--<button><a href="${pageContext.request.contextPath}/patient/edit/${patient.id}">Edit</a></button>-->
-                    <!--<button><a href="${pageContext.request.contextPath}/patient/delete/${patient.id}">Delete</a></button>-->
                 </div>
             </td>
         </tr> 
