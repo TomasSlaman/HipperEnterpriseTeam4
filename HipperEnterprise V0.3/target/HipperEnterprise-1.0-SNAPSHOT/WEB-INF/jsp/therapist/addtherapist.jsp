@@ -4,8 +4,10 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
 
+
+
 <div class="form-field">
-    <h2>Add Therapist</h2>
+    <h2 align="center">Add Therapist</h2>
     <form:form class="form-horizontal" role="form" method="POST" commandName="therapist" action="${pageContext.request.contextPath}/therapist/add">
         <div class="form-group">
             <label class="control-label col-sm-2" for="firstName">First name:</label>
@@ -49,13 +51,13 @@
                 <form:input path="city" class="form-control" placeholder="Enter city" />
             </div>
         </div>
-            <div class="form-group">
+        <div class="form-group">
             <label class="control-label col-sm-2" for="occupation">Occupation:</label>
             <div class="col-sm-10">
                 <form:input path="occupation" class="form-control" placeholder="Enter occupation" />
             </div>
         </div>
-            <div class="form-group">
+        <div class="form-group">
             <label class="control-label col-sm-2" for="firm">Firm:</label>
             <div class="col-sm-10">
                 <form:input path="firm" class="form-control" placeholder="Enter firm" />
@@ -65,9 +67,9 @@
             <label class="control-label col-sm-2" for="role">Role:</label>
             <div class="col-sm-10">
                 <form:select path="role" class="form-control">
-                                <form:option value="normal">Normal</form:option>
-                                <form:option value="admin">Administrator</form:option>
-                            </form:select>
+                    <form:option value="normal">Normal</form:option>
+                    <form:option value="admin">Administrator</form:option>
+                </form:select>
             </div>
         </div>
 
