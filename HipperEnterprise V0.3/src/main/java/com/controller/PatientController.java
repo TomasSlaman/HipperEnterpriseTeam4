@@ -46,6 +46,7 @@ public class PatientController {
 
     private static String titleNew = "New patient";
     private static String titleEdit = "Edit patient";
+    private static String titlePatientExercise = "View Patient Exercise";
 
     @RequestMapping(value = "/patientlist")
     public ModelAndView patientlist() throws IOException {
@@ -88,7 +89,7 @@ public class PatientController {
         PatientUser patient = patientService.getPatient(id);
         patientEditView.addObject("pageTitle", titleEdit);
         patientEditView.addObject("patient", patient);
-        
+
         List<Exercise> patientexercises = patient.getExcersises();
         patientEditView.addObject("patientexercises", patientexercises);
 
@@ -159,22 +160,20 @@ public class PatientController {
         return patientView;
 
     }
-    
-    
+
     //View graph controller
-    
-   @RequestMapping(value = "/viewgraph/{id}", method = RequestMethod.GET)
-    public ModelAndView viewGraph(@PathVariable Long id) {
+    @RequestMapping(value = "/viewgraph/{id}", method = RequestMethod.GET)
+    public ModelAndView viewGraphPage(@PathVariable Long id) {
 
-        ModelAndView patientEditView = new ModelAndView("/patient/viewgraph");
+        ModelAndView patientViewGraph = new ModelAndView("/patient/viewgraph");
         PatientUser patient = patientService.getPatient(id);
-        patientEditView.addObject("pageTitle", titleEdit);
-        patientEditView.addObject("patient", patient);
+        patientViewGraph.addObject("pageTitle", titlePatientExercise);
+        patientViewGraph.addObject("patient", patient);
         
-        List<Exercise> patientexercises = patient.getExcersises();
-        patientEditView.addObject("patientexercises", patientexercises);
+        
 
-        return patientEditView;
+        return patientViewGraph;
     }
+
 
 }

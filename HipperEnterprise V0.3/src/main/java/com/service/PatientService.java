@@ -42,7 +42,6 @@ public class PatientService {
     }
 
     public void storeAllPatients(List<PatientUser> patients) {
-
         patientDAO.storeAllPatients(patients);
 
     }

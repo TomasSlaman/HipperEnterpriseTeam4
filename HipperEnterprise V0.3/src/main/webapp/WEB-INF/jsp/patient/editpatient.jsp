@@ -103,7 +103,7 @@
             description
             <td>
                 <div align="center">
-                    <a href="${pageContext.request.contextPath}/patient/viewgraph"><button>View</button></a>
+                    <a href="${pageContext.request.contextPath}/patient/viewgraph/${patientexercises.exerciseId}"><button>View</button></a>
                     <a href=""><button>Delete</button></a>
                 </div>
             </td>
