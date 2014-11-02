@@ -86,9 +86,6 @@
         </div>
     </div>
 </form:form>
-
-
-
 <table class="table table-striped table-bordered">
         <caption><strong>List of Exercises</strong></caption>
         <tr>
@@ -102,7 +99,6 @@
                 <td>${patientexercises.exerciseId}</td>
                 <td>${patientexercises.exerciseName}</td>
                 <td>${patientexercises.description}</td>
-                description
                 <td>
                     <div align="center">
                         <a href="${pageContext.request.contextPath}/patient/viewgraph/${patientexercises.exerciseId}"><button>View</button></a>
