@@ -5,7 +5,6 @@
  */
 package com.controller;
 
-import com.editor.ExerciseEditor;
 import com.model.Exercise;
 import com.model.PatientUser;
 import com.model.TherapistUser;
@@ -139,22 +138,21 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
-    public ModelAndView patientView(HttpServletRequest request, @PathVariable Long id, @ModelAttribute PatientUser patient) {
+    public ModelAndView patientView(@RequestParam(value="exercises1", required=false) Long exerciseId1, 
+                                    @RequestParam(value="exercises2", required=false) Long exerciseId2,
+                                    @RequestParam(value="exercises3", required=false) Long exerciseId3,
+                                    @RequestParam(value="exercises4", required=false) Long exerciseId4,
+                                    @PathVariable Long id, @ModelAttribute PatientUser patient) {
 
         ModelAndView patientView = new ModelAndView("patient/editpatient");
         patient = patientService.getPatient(id);
-
+        
         List<Exercise> exercises = patient.getExcersises();
 
-        String[] ids = new String[4];
-
-        for (int i = 0; i < ids.length; i++) {
-
-            ids[i] = request.getParameter("exercises".concat(Integer.toString(i + 1)));
-            Exercise ex = exerciseService.getExercise(Long.parseLong(ids[i]));
-            exercises.add(ex);
-
-        }
+        exercises.add(exerciseService.getExercise(exerciseId1));
+        exercises.add(exerciseService.getExercise(exerciseId2));
+        exercises.add(exerciseService.getExercise(exerciseId3));
+        exercises.add(exerciseService.getExercise(exerciseId4));
 
         patientService.updatePatient(patient);
         patientView.addObject("patient", patient);
