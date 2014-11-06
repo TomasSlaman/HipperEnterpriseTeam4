@@ -10,8 +10,10 @@ import com.model.PatientUser;
 import com.model.TherapistUser;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -68,12 +70,21 @@ public class PatientDao {
 
     @SuppressWarnings("unchecked")
     public List<PatientUser> getPatients() {
-        HttpSession Session;
-        Session = Global.GlobalVariables.getSession();
-        TherapistUser Therapist = new TherapistUser();
-        Therapist = (TherapistUser) Session.getAttribute("therapist");
-        int TherapistID = (int) Therapist.getId();
-        return getCurrentSession().createQuery("from PatientUser where TherapistUser = "+TherapistID+"").list();
+
+        return getCurrentSession().createQuery("from PatientUser").list();
+    }
+
+
+    public List<PatientUser> getPatientsFromTherapist(int TherapistID) {
+
+        List Patient = getCurrentSession().createCriteria(PatientUser.class)
+                .createAlias("Therapists", "t")
+                .add(Restrictions.eq("t.Patients", new Integer(TherapistID)))
+                .list();
+
+        System.out.println(Patient.get(0));
+        return Patient;
+
     }
 
     public void storeAllPatients(List<PatientUser> patients) {

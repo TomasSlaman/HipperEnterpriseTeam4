@@ -16,43 +16,39 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
-  * @author Jeroen
+ * @author Jeroen
  */
 @Entity
 @Table(name = "Patient")
-@PrimaryKeyJoinColumn(name="id")
-public class PatientUser extends User{
+@PrimaryKeyJoinColumn(name = "id")
+public class PatientUser extends User {
 
-    @Column(name = "length", nullable = true) 
+    @Column(name = "length", nullable = true)
     private String length;
     @Column(name = "weight", nullable = true)
     private String weight;
-    @Column(name="TherapistUser", nullable=true)
-    private int TherapistUser;
 
-    public int getTherapistUser() {
-        return TherapistUser;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "Therapist_Patient",
+            joinColumns = {
+                @JoinColumn(name = "Patient_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "Therapist_ID", referencedColumnName = "ID")})
+    private List<TherapistUser> Therapists = new ArrayList();
 
-    public void setTherapistUser(int TherapistUser) {
-        this.TherapistUser = TherapistUser;
-    }
-    
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name="patient_has_execise"
-		,joinColumns=@JoinColumn(name="patient_id")
-		,inverseJoinColumns=@JoinColumn(name="exercise_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "patient_has_execise", joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "exercise_id"))
     private List<Exercise> excersises = new ArrayList();
-
 
     public PatientUser(String length, String weight, long id, String firstname, String lastname, String email, String password, String addres, String postalCode, String city) {
         super(id, firstname, lastname, email, password, addres, postalCode, city);
         this.length = length;
         this.weight = weight;
     }
-    
-    public PatientUser(){
-        
+
+    public PatientUser() {
+
     }
 
     public String getLength() {
@@ -77,6 +73,14 @@ public class PatientUser extends User{
 
     public void setExcersises(List<Exercise> excersises) {
         this.excersises = excersises;
+    }
+
+    public List<TherapistUser> getTherapists() {
+        return Therapists;
+    }
+
+    public void setTherapists(List<TherapistUser> Therapists) {
+        this.Therapists = Therapists;
     }
 
 }

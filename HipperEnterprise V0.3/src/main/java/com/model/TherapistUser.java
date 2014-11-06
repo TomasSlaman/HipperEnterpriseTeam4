@@ -1,24 +1,39 @@
 package com.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
-  * @author Jeroen
+ * @author Jeroen
  */
 @Entity
 @Table(name = "Therapist")
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name = "id")
 public class TherapistUser extends User {
-    
-    @Column(name = "occupation", nullable = true) 
+
+    @Column(name = "occupation", nullable = true)
     private String occupation;
-    @Column(name = "firm", nullable = true) 
+    @Column(name = "firm", nullable = true)
     private String firm;
-    @Column(name = "role", nullable = true) 
+    @Column(name = "role", nullable = true)
     private String role;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Therapist_Patient",
+            joinColumns = {
+                @JoinColumn(name = "Therapist_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "Patient_ID", referencedColumnName = "ID")})
+    private List<PatientUser> Patients = new ArrayList();
 
     public TherapistUser() {
     }
@@ -53,7 +68,13 @@ public class TherapistUser extends User {
     public void setRole(String role) {
         this.role = role;
     }
-    
-    
+
+    public List<PatientUser> getPatients() {
+        return Patients;
+    }
+
+    public void setPatients(List<PatientUser> Patients) {
+        this.Patients = Patients;
+    }
 
 }

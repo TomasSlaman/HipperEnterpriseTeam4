@@ -39,7 +39,12 @@ public class PatientService {
 
     public List<PatientUser> getPatients() {
         return patientDAO.getPatients();
-      
+
+    }
+
+    public List<PatientUser>getPatientsFromTherapist(int TherapistID){
+        return patientDAO.getPatientsFromTherapist(TherapistID);
+
     }
 
     public void storeAllPatients(List<PatientUser> patients) {

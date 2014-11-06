@@ -49,9 +49,12 @@ public class PatientController {
     private static String titleEdit = "Edit patient";
 
     @RequestMapping(value = "/patientlist")
-    public ModelAndView patientlist() throws IOException {
+    public ModelAndView patientlist( HttpSession session) throws IOException {
+          TherapistUser Therapist = new TherapistUser();
+        Therapist = (TherapistUser) session.getAttribute("therapist");
+        int TherapistID = (int) Therapist.getId();
         ModelAndView patientListView = new ModelAndView("patient/listpatient");
-        List<PatientUser> patients = patientService.getPatients();
+        List<PatientUser> patients = patientService.getPatientsFromTherapist(TherapistID);
         patientListView.addObject("patients", patients);
 
         return patientListView;
@@ -73,11 +76,11 @@ public class PatientController {
         TherapistUser Therapist = new TherapistUser();
         Therapist = (TherapistUser) session.getAttribute("therapist");
         int TherapistID = (int) Therapist.getId();
-        patient.setTherapistUser(TherapistID);
+        
         ModelAndView patientListView = new ModelAndView("/patient/listpatient");
         patientService.addPatient(patient);
         
-        List<PatientUser> patients = patientService.getPatients();
+        List<PatientUser> patients = patientService.getPatientsFromTherapist(TherapistID);
         patientListView.addObject("patients", patients);
         String message = "Patient was successfully added.";
         patientListView.addObject("message", message);
