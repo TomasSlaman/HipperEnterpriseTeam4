@@ -78,7 +78,7 @@ public class PatientController {
         int TherapistID = (int) Therapist.getId();
         
         ModelAndView patientListView = new ModelAndView("/patient/listpatient");
-        patientService.addPatient(patient);
+        patientService.addPatient(patient, Therapist);
         
         List<PatientUser> patients = patientService.getPatientsFromTherapist(TherapistID);
         patientListView.addObject("patients", patients);
@@ -101,11 +101,15 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("patient") PatientUser patient) {
+    public ModelAndView edit(@ModelAttribute("patient") PatientUser patient, HttpSession session) {
 
+         TherapistUser Therapist = new TherapistUser();
+        Therapist = (TherapistUser) session.getAttribute("therapist");
+        int TherapistID = (int) Therapist.getId();
+        
         ModelAndView patientlistView = new ModelAndView("/patient/listpatient");
         patientService.updatePatient(patient);
-        List<PatientUser> patients = patientService.getPatients();
+        List<PatientUser> patients = patientService.getPatientsFromTherapist(TherapistID);
         patientlistView.addObject("patients", patients);
 
         String message = "Patient was successfully edited.";

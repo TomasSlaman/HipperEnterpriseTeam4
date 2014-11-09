@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.PatientDao;
 import com.model.PatientUser;
+import com.model.TherapistUser;
 
 @Service
 @Transactional
@@ -23,6 +24,10 @@ public class PatientService {
 
     public void addPatient(PatientUser patient) {
         patientDAO.addPatient(patient);
+    }
+    
+        public void addPatient(PatientUser patient, TherapistUser Therapist) {
+        patientDAO.addPatient(patient,Therapist);
     }
 
     public void updatePatient(PatientUser patient) {
