@@ -11,9 +11,11 @@
 <%@ include file="../template/top.jsp" %>
 
 
-<h2>${pageTitle}</h2>
-<h3>Results patient ${patient.firstName} ${patient.lastName} for exercise ${exercise.getExerciseName()}</h3>
-<div>
+<h3>${pageTitle}</h3>
+Patient: ${patient.firstName} ${patient.lastName} <br>
+Exercise: ${exercise.getExerciseName()}
+
+<div><br>
     Results here please<br>
     <br>
 </div>
@@ -42,17 +44,17 @@
     <tr>
         <td width="10%"><strong> Date </strong></td>
         <td width="70%"><strong> Comment </strong></td>
-        <!--<td width="10%"><strong> </strong></td>-->
+        <td width="10%"><strong> </strong></td>
     </tr>
     <c:forEach var="comment" items="${comments}">
         <tr>
             <td>${comment.date}</td>
             <td>${comment.comment}</td>
-<!--            <td>
+            <td>
                 <div align="center">
                     <a href="${pageContext.request.contextPath}/patient/deletecomment/${comment.commentId}"><button>Delete</button></a>                       
                 </div>
-            </td>-->
+            </td>
         </tr> 
     </c:forEach>
 </table>
@@ -73,8 +75,5 @@
     </div>
 </form:form>
 
-
-
-
-
+<a href="${pageContext.request.contextPath}/patient/edit/${patientId}"><button>back</button></a> 
 <%@ include file="../template/bottom.jsp" %>
