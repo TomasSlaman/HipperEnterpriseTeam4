@@ -95,7 +95,7 @@ public class PatientDao {
     public List<PatientUser> getPatientsFromTherapist(int TherapistID) {
         long TPID = Long.valueOf(TherapistID);
         
-        Query query = getCurrentSession().createSQLQuery("SELECT * FROM User inner join Therapist_Patient on User.id = Therapist_Patient.Patient_ID and Therapist_ID = ?").addEntity(PatientUser.class);
+        Query query = getCurrentSession().createSQLQuery("SELECT * FROM User inner join Patient on User.id = Patient.id inner join Therapist_Patient on User.id = Therapist_Patient.Patient_ID and Therapist_Patient.Therapist_ID = ?").addEntity(PatientUser.class);
         List<PatientUser> Q = query.setInteger(0, TherapistID).list();
         
         return Q;
