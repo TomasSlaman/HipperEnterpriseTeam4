@@ -58,7 +58,7 @@
                         <h2 class="fg-white no-margin">Profile Settings</h2>
                     </div>
                 </a>
-                    <a class="tile double double-vertical bg-darkTeal" href="${pageContext.request.contextPath}/logout" data-click="transform">
+                <a class="tile double double-vertical bg-darkTeal" href="${pageContext.request.contextPath}/logout" data-click="transform">
                     <div class="tile-content icon">
                         <i class="icon-switch"></i>
                     </div>
@@ -69,14 +69,60 @@
             </div>
         </div>
     </div>
+    <div id="container"></div>
 </div>
 
 <%@include file="../template/bottom.jsp" %>
 
+<script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            title: {
+                text: 'Exercise',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                title: {
+                    text: 'Amount of exercises'
+                },
+                plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+            },
+            tooltip: {
+                valueSuffix: ' exercises'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                    name: 'Goalline',
+                    data: [8, 10, 10, 12, 12, 10]
+                }, {
+                    name: 'Patientline',
+                    data: [8, 10, 9, 10, 11, 6]
+                }]
+        });
+    });
+</script>
 <script src="../resources/js/metro/jquery.min.js"></script>
 <script src="../resources/js/metro/jquery.mousewheel.js"></script>
 <script src="../resources/js/metro/jquery.widget.min.js"></script>
 <script src="../resources/js/metro/metro.min.js"></script>
+<script src="../resources/js/highchart/js/highcharts.js"></script>
+<script src="../resources/js/highchart/js/modules/exporting.js"></script>
 <link rel="stylesheet" href="../resources/css/metro-bootstrap.css"/>
 <link rel="stylesheet" href="../resources/css/iconFont.css" >
 <!-- Hieronder staan links voor de metro/ tile style die gebruikt is.
