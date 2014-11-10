@@ -64,7 +64,8 @@ public class PatientDao {
         patientToUpdate.setCity(patient.getCity());
         patientToUpdate.setLength(patient.getLength());
         patientToUpdate.setWeight(patient.getWeight());
-        patientToUpdate.setExcersises(patient.getExcersises());
+        patientToUpdate.setPrograms(patient.getPrograms());
+//        patientToUpdate.setExcersises(patient.getExcersises());
         getCurrentSession().update(patientToUpdate);
     }
     

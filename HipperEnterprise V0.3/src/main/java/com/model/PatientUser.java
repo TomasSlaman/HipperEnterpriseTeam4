@@ -37,9 +37,10 @@ public class PatientUser extends User {
                 @JoinColumn(name = "Therapist_ID", referencedColumnName = "ID")})
     private List<TherapistUser> Therapists = new ArrayList();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "patient_has_execise", joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "exercise_id"))
-    private List<Exercise> excersises = new ArrayList();
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "patient_has_execise", joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "exercise_id"))
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "patient")
+    private List<Program> programs = new ArrayList();
 
     public PatientUser(String length, String weight, long id, String firstname, String lastname, String email, String password, String addres, String postalCode, String city) {
         super(id, firstname, lastname, email, password, addres, postalCode, city);
@@ -67,12 +68,12 @@ public class PatientUser extends User {
         this.weight = weight;
     }
 
-    public List<Exercise> getExcersises() {
-        return excersises;
+    public List<Program> getPrograms() {
+        return programs;
     }
 
-    public void setExcersises(List<Exercise> excersises) {
-        this.excersises = excersises;
+    public void setPrograms(List<Program> programs) {
+        this.programs = programs;
     }
 
     public List<TherapistUser> getTherapists() {

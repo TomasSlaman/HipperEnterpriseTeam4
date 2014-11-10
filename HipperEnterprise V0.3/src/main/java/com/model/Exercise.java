@@ -44,11 +44,12 @@ public class Exercise implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
  
-    @ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="patient_has_execise"
-		,joinColumns=@JoinColumn(name="exercise_id")
-		,inverseJoinColumns=@JoinColumn(name="patient_id"))
-    private List<PatientUser> patients = new ArrayList();
+//    @ManyToMany(fetch=FetchType.EAGER)
+//	@JoinTable(name="patient_has_execise"
+//		,joinColumns=@JoinColumn(name="exercise_id")
+//		,inverseJoinColumns=@JoinColumn(name="patient_id"))
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "exercise")
+    private List<Program> programs = new ArrayList();
 
     public Exercise() {
         
@@ -110,12 +111,13 @@ public class Exercise implements Serializable {
 
     }
 
-    public List<PatientUser> getPatients() {
-        return patients;
+    public List<Program> getPrograms() {
+        return programs;
     }
 
-    public void setPatients(List<PatientUser> patients) {
-        this.patients = patients;
+    public void setPrograms(List<Program> programs) {
+        this.programs = programs;
     }
+
 
 }
