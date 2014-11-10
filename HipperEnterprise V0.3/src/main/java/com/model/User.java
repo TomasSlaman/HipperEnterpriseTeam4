@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "User")
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class User implements Serializable {
 
     @Id
