@@ -52,7 +52,7 @@ public class PatientController {
 
     private static String titleNew = "New patient";
     private static String titleEdit = "Edit patient";
-    private static String titlePatientExercise = "Results Patient";
+    private static String titlePatientExercise = "Comment added";
 
     @RequestMapping(value = "/patientlist")
     public ModelAndView patientlist() throws IOException {
@@ -149,7 +149,6 @@ public class PatientController {
         patient = patientService.getPatient(id);
 
         List<Exercise> exercises = patient.getExcersises();
-
         String[] ids = new String[4];
 
         for (int i = 0; i < ids.length; i++) {
@@ -157,9 +156,8 @@ public class PatientController {
             ids[i] = request.getParameter("exercises".concat(Integer.toString(i + 1)));
             Exercise ex = exerciseService.getExercise(Long.parseLong(ids[i]));
             exercises.add(ex);
-
         }
-
+        
         patientService.updatePatient(patient);
         patientView.addObject("patient", patient);
 
@@ -168,40 +166,30 @@ public class PatientController {
     }
 
     //View graph controller
-    @RequestMapping(value = "/viewgraph/{id}&{id2}", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewgraph1/{id}&{id2}", method = RequestMethod.GET)
     public ModelAndView viewGraphPage(@PathVariable Long id, @PathVariable Long id2) {
 
         ModelAndView patientViewGraph = new ModelAndView("/patient/viewgraph");
-//        System.out.println(id2);
-        // exercise information
-        
     
         Exercise exercise = exerciseService.getExercise(id);
         PatientUser patient = patientService.getPatient(id2);
         patientViewGraph.addObject("exercise", exercise);
-        patientViewGraph.addObject("patient", patient);
+        patientViewGraph.addObject("patient", patient).addObject("patientId", patient.getId());
 
         // comment section
         //             - new comment
-       Comment comment = new Comment();
+        Comment comment = new Comment();
         patientViewGraph.addObject("comment", comment);
 
         //             - list of comments
-        List<Comment> allComments = commentService.getComments();
-        
-        ArrayList<Comment> comments = new ArrayList<Comment>();
-        
+        List<Comment> allComments = commentService.getComments();       
+        ArrayList<Comment> comments = new ArrayList<Comment>();      
         Comment[] allInArray = allComments.toArray(new Comment[allComments.size()]);
-        
-        
-        
-        for (int i = 0; i < allInArray.length; i++) {
-            
-            if(allInArray[i].getExersiseId() == id && allInArray[i].getPatientId() == id2){
-                
+
+        for (int i = 0; i < allInArray.length; i++) {     
+            if(allInArray[i].getExersiseId() == id && allInArray[i].getPatientId() == id2){        
                 comments.add(allInArray[i]);
             }
-            
         }
 
         patientViewGraph.addObject("comments", comments);
@@ -211,23 +199,22 @@ public class PatientController {
         return patientViewGraph;
     }
 
-    @RequestMapping(value = "/viewgraph/{id}&{id2}", method = RequestMethod.POST)
+    @RequestMapping(value = "/viewgraph2/{id}&{id2}", method = RequestMethod.POST)
     public ModelAndView viewGraphPageCommentAdd(@PathVariable Long id, @PathVariable Long id2, @ModelAttribute Comment comment) {
 
-        ModelAndView AddComment = new ModelAndView("/patient/viewgraph");
-
+        ModelAndView patientCommentAdded = new ModelAndView("/patient/editpatient");   
+        PatientUser patient = patientService.getPatient(id2);
+        patientCommentAdded.addObject("pageTitle", titleEdit);
+        patientCommentAdded.addObject("patient", patient).addObject("patientId", patient.getId());
+        List<Exercise> patientexercises = patient.getExcersises();
+        patientCommentAdded.addObject("patientexercises", patientexercises);
+        
         comment.setExersiseId(id);
         comment.setPatientId(id2);
         comment.setDate();
         commentService.addComment(comment);
         
-        List<Comment> comments = commentService.getComments();
-        AddComment.addObject("comments", comments);
-
-        Exercise exercise = exerciseService.getExercise(id);
-        AddComment.addObject("exercise", exercise);
-
-        return AddComment;
+        return patientCommentAdded;
 
     }
 
@@ -241,4 +228,7 @@ public class PatientController {
         modelAndView.addObject("message", message);
         return modelAndView;
     }
+    
+    
+    
 }
