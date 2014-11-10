@@ -52,7 +52,7 @@ public class PatientController {
 
     private static String titleNew = "New patient";
     private static String titleEdit = "Edit patient";
-    private static String titlePatientExercise = "Comment was added";
+    private static String titlePatientExercise = "View Results";
 
     @RequestMapping(value = "/patientlist")
     public ModelAndView patientlist( HttpSession session) throws IOException {

@@ -115,5 +115,7 @@
     </c:forEach>
 </table>   
 
+<a href="${pageContext.request.contextPath}/patient/patientlist"><button>back</button></a> 
+
 
 <%@ include file="../template/bottom.jsp" %>
