@@ -8,12 +8,14 @@ package com.controller;
 import com.model.Comment;
 import com.model.Exercise;
 import com.model.PatientUser;
+import com.model.Program;
 import com.model.SensorData;
 import com.model.TherapistUser;
 import com.reader.CSVReader;
 import com.service.CommentService;
 import com.service.ExerciseService;
 import com.service.PatientService;
+import com.service.ProgramService;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,6 +53,9 @@ public class PatientController {
 
     @Autowired
     private CommentService commentService;
+    
+    @Autowired
+    private ProgramService programService;
 
     @ModelAttribute("exercises")
     public List<Exercise> populateOfferedCourses() {
@@ -114,9 +119,8 @@ public class PatientController {
         patientEditView.addObject("pageTitle", titleEdit);
         patientEditView.addObject("patient", patient).addObject("patientId", patient.getId());
 
-        List<Exercise> patientexercises = patient.getExcersises();
-        patientEditView.addObject("patientexercises", patientexercises);
-
+//        List<Exercise> patientexercises = patient.getExcersises();
+//        patientEditView.addObject("patientexercises", patientexercises);
         return patientEditView;
     }
 
@@ -135,9 +139,8 @@ public class PatientController {
         String message = "Patient was successfully edited.";
         patientlistView.addObject("message", message);
 
-        List<Exercise> patientexercises = patient.getExcersises();
-        patientlistView.addObject("patientexercises", patientexercises);
-
+//        List<Exercise> patientexercises = patient.getExcersises();
+//        patientlistView.addObject("patientexercises", patientexercises);
         return patientlistView;
 
     }
@@ -156,12 +159,11 @@ public class PatientController {
     @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.GET)
     public ModelAndView addExerciseToPatientView(@PathVariable Long id) {
 
-        ModelAndView addExerciseView = new ModelAndView("/patient/addexercisetopatient");
+        ModelAndView addExerciseView = new ModelAndView("/patient/addexercise");
 
         PatientUser currentPatient = patientService.getPatient(id);
         List<Exercise> ex = exerciseService.getExercises();
         addExerciseView.addObject("patient", currentPatient);
-
         addExerciseView.addObject("exercises", ex);
 
         return addExerciseView;
@@ -169,29 +171,60 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
-    public ModelAndView patientView(@RequestParam(value = "exercises1", required = false) Long exerciseId1,
-            @RequestParam(value = "exercises2", required = false) Long exerciseId2,
-            @RequestParam(value = "exercises3", required = false) Long exerciseId3,
-            @RequestParam(value = "exercises4", required = false) Long exerciseId4,
-            @PathVariable Long id, @ModelAttribute PatientUser patient) {
+    public ModelAndView patientView(@PathVariable int id, @RequestParam(value = "exercise") Long exerciseId,
+            @RequestParam(value = "sets") String sets,
+            @RequestParam(value = "date") String date) {
 
-        ModelAndView patientView = new ModelAndView("patient/editpatient");
-        patient = patientService.getPatient(id);
-
-        List<Exercise> exercises = patient.getExcersises();
-
-        exercises.add(exerciseService.getExercise(exerciseId1));
-        exercises.add(exerciseService.getExercise(exerciseId2));
-        exercises.add(exerciseService.getExercise(exerciseId3));
-        exercises.add(exerciseService.getExercise(exerciseId4));
-
+        ModelAndView addExerciseView = new ModelAndView("/patient/editpatient");
+   
+        PatientUser patient = patientService.getPatient(id);
+        
+        List<Program> programs = patient.getPrograms();
+        
+        Program p = new Program();
+        p.setPatient(patient);
+        p.setExercise(exerciseService.getExercise(exerciseId));
+        p.setSets(Integer.parseInt(sets));
+        p.setDate(date);
+        
+        programs.add(p);
+        
+        programService.addProgram(p);
         patientService.updatePatient(patient);
-        patientView.addObject("patient", patient);
+        
+        addExerciseView.addObject("patient", patient);
 
-        return patientView;
+//        List<Exercise> exercises = programService.getExercisesForPatienId(id);
+//        
+//        
+        
+        return addExerciseView;
 
     }
 
+//    @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
+//    public ModelAndView patientView(@RequestParam(value = "exercises1", required = false) Long exerciseId1,
+//            @RequestParam(value = "exercises2", required = false) Long exerciseId2,
+//            @RequestParam(value = "exercises3", required = false) Long exerciseId3,
+//            @RequestParam(value = "exercises4", required = false) Long exerciseId4,
+//            @PathVariable Long id, @ModelAttribute PatientUser patient) {
+//
+//        ModelAndView patientView = new ModelAndView("patient/editpatient");
+//        patient = patientService.getPatient(id);
+//
+////        List<Exercise> exercises = patient.getExcersises();
+//
+////        exercises.add(exerciseService.getExercise(exerciseId1));
+////        exercises.add(exerciseService.getExercise(exerciseId2));
+////        exercises.add(exerciseService.getExercise(exerciseId3));
+////        exercises.add(exerciseService.getExercise(exerciseId4));
+//
+//        patientService.updatePatient(patient);
+//        patientView.addObject("patient", patient);
+//
+//        return patientView;
+//
+//    }
     //View graph controller
     @RequestMapping(value = "/viewgraph1/{id}&{id2}", method = RequestMethod.GET)
     public ModelAndView viewGraphPage(HttpServletRequest request, @PathVariable Long id, @PathVariable Long id2) {
@@ -262,7 +295,7 @@ public class PatientController {
         String array = "[";
         for (int i = 0; i < awesomeArray.length; i++) {
             array += awesomeArray[i];
-            if (i != (awesomeArray.length -1)) {
+            if (i != (awesomeArray.length - 1)) {
                 array += ",";
             }
         }
@@ -282,8 +315,8 @@ public class PatientController {
         PatientUser patient = patientService.getPatient(id2);
         patientCommentAdded.addObject("pageTitle", titleEdit);
         patientCommentAdded.addObject("patient", patient).addObject("patientId", patient.getId());
-        List<Exercise> patientexercises = patient.getExcersises();
-        patientCommentAdded.addObject("patientexercises", patientexercises);
+//        List<Exercise> patientexercises = patient.getExcersises();
+//        patientCommentAdded.addObject("patientexercises", patientexercises);
 
         comment.setExersiseId(id);
         comment.setPatientId(id2);
