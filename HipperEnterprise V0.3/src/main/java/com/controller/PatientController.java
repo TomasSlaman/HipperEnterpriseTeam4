@@ -242,7 +242,7 @@ public class PatientController {
 
     @RequestMapping(value = "/deletecomment/{id}", method = RequestMethod.GET)
     public ModelAndView deleteComment(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("/patient/listpatient");
+        ModelAndView modelAndView = new ModelAndView("/patient/viewgraph");
         commentService.deleteComment(id);
         List<PatientUser> patients = patientService.getPatients();
         modelAndView.addObject("patients", patients);

@@ -15,6 +15,22 @@
 Patient: ${patient.firstName} ${patient.lastName} <br>
 Exercise: ${exercise.getExerciseName()}
 
+<div id="chart-container">
+    <input type="button" id="year" value="Year" />
+    <input type="button" id="month" value="Month" />
+    <input type="button" id="week" value="Week" />
+
+    <select style="margin-left: 10px" id="type">
+        <option value="column">Bar chart</option>
+        <option value="line">Line</option>
+        <option value="spline">Smooth line</option>
+    </select>
+
+    <div id="container">
+
+    </div>
+</div>
+
 <div><br>
     Results here please<br>
     <br>
@@ -77,3 +93,83 @@ Exercise: ${exercise.getExerciseName()}
 
 <a href="${pageContext.request.contextPath}/patient/edit/${patientId}"><button>back</button></a> 
 <%@ include file="../template/bottom.jsp" %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setHighChart();
+    });
+    var catogories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    var data1 = [10, 0, 10, 0, 12, 10, 0];
+    var data2 = [10, 0, 8, 0, 10, 3, 0];
+    var type = 'column';
+    $('#year').on('click', function () {
+        catogories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        data1 = [42 * 4, 50 * 4, 50 * 4, 53 * 4, 53 * 4, 53 * 4, 52 * 4, 52 * 4, 52 * 4, 52 * 4, 52 * 4, 53 * 4];
+        data2 = [31 * 4, 34 * 4, 37 * 4, 40 * 4, 45 * 4, 48 * 4, 52 * 4, 52 * 4, 52 * 4, 44 * 4, 45 * 4, 49 * 4];
+        setHighChart();
+    });
+    $('#month').on('click', function () {
+        catogories = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+        data1 = [42, 43, 45, 43];
+        data2 = [31, 34, 37, 40];
+        setHighChart();
+    });
+    $('#week').on('click', function () {
+        catogories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        data1 = [10, 0, 10, 0, 12, 10, 0];
+        data2 = [10, 0, 8, 0, 10, 3, 0];
+        setHighChart();
+    });
+
+    $('#type').on('change', function () {
+        type = $('#type option:selected').val();
+        console.log($('#type option:selected').val());
+        setHighChart();
+    });
+
+    function setHighChart() {
+        $('#container').highcharts({
+            chart: {
+                type: type
+            },
+            title: {
+                text: '${exercise.getExerciseName()}',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                categories: catogories
+            },
+            yAxis: {
+                title: {
+                    text: 'Amount of exercises'
+                },
+                plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+            },
+            tooltip: {
+                valueSuffix: ' exercises'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                    name: 'Goalline',
+                    data: data1
+                }, {
+                    name: 'Patientline',
+                    data: data2
+                }]
+        });
+    }
+</script>
+<script src="../../resources/js/highchart/js/highcharts.js"></script>
+<script src="../../resources/js/highchart/js/modules/exporting.js"></script>
