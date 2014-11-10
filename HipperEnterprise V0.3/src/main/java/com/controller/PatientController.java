@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -40,7 +41,7 @@ public class PatientController {
 
     @Autowired
     private ExerciseService exerciseService;
-    
+
     @Autowired
     private CommentService commentService;
 
@@ -93,7 +94,7 @@ public class PatientController {
         ModelAndView patientEditView = new ModelAndView("/patient/editpatient");
         PatientUser patient = patientService.getPatient(id);
         patientEditView.addObject("pageTitle", titleEdit);
-        patientEditView.addObject("patient", patient);
+        patientEditView.addObject("patient", patient).addObject("patientId", patient.getId());
 
         List<Exercise> patientexercises = patient.getExcersises();
         patientEditView.addObject("patientexercises", patientexercises);
@@ -167,53 +168,69 @@ public class PatientController {
     }
 
     //View graph controller
-    @RequestMapping(value = "/viewgraph/{id}", method = RequestMethod.GET)
-    public ModelAndView viewGraphPage(@PathVariable Long id) {
+    @RequestMapping(value = "/viewgraph/{id}&{id2}", method = RequestMethod.GET)
+    public ModelAndView viewGraphPage(@PathVariable Long id, @PathVariable Long id2) {
 
         ModelAndView patientViewGraph = new ModelAndView("/patient/viewgraph");
-        
+//        System.out.println(id2);
         // exercise information
-        Exercise exercise = exerciseService.getExercise(id);
-        patientViewGraph.addObject("exercise", exercise);
         
+    
+        Exercise exercise = exerciseService.getExercise(id);
+        PatientUser patient = patientService.getPatient(id2);
+        patientViewGraph.addObject("exercise", exercise);
+        patientViewGraph.addObject("patient", patient);
+
         // comment section
         //             - new comment
-        Comment comment = new Comment();
-        comment.setExersiseId(id);
-        comment.setPatientId(1);
-        patientViewGraph.addObject("comment", new Comment());
-        
+       Comment comment = new Comment();
+        patientViewGraph.addObject("comment", comment);
+
         //             - list of comments
-        List<Comment> comments = commentService.getComments();
-        patientViewGraph.addObject("comments", comments);
+        List<Comment> allComments = commentService.getComments();
         
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+        
+        Comment[] allInArray = allComments.toArray(new Comment[allComments.size()]);
+        
+        
+        
+        for (int i = 0; i < allInArray.length; i++) {
+            
+            if(allInArray[i].getExersiseId() == id && allInArray[i].getPatientId() == id2){
+                
+                comments.add(allInArray[i]);
+            }
+            
+        }
+
+        patientViewGraph.addObject("comments", comments);
+
         // title of the page
         patientViewGraph.addObject("pageTitle", titlePatientExercise);
         return patientViewGraph;
     }
-    
-     @RequestMapping(value = "/viewgraph/{id}", method = RequestMethod.POST)
-    public ModelAndView viewGraphPageCommentAdd(@PathVariable Long id, @ModelAttribute Comment comment) {
+
+    @RequestMapping(value = "/viewgraph/{id}&{id2}", method = RequestMethod.POST)
+    public ModelAndView viewGraphPageCommentAdd(@PathVariable Long id, @PathVariable Long id2, @ModelAttribute Comment comment) {
 
         ModelAndView AddComment = new ModelAndView("/patient/viewgraph");
-        
-        
-         comment.setDate();
-         System.out.println(comment.getComment());
-         System.out.println(comment.getDate());
-         
+
+        comment.setExersiseId(id);
+        comment.setPatientId(id2);
+        comment.setDate();
         commentService.addComment(comment);
         
         List<Comment> comments = commentService.getComments();
         AddComment.addObject("comments", comments);
-        
+
         Exercise exercise = exerciseService.getExercise(id);
         AddComment.addObject("exercise", exercise);
 
         return AddComment;
 
     }
-    
+
     @RequestMapping(value = "/deletecomment/{id}", method = RequestMethod.GET)
     public ModelAndView deleteComment(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("/patient/listpatient");

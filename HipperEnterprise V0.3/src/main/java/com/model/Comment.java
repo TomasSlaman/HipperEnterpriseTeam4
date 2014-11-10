@@ -41,6 +41,15 @@ public class Comment implements Serializable{
     public Comment() {
     }
 
+    public Comment(long exersiseId, long patientId, String comment, String date) {
+        this.exersiseId = exersiseId;
+        this.patientId = patientId;
+        this.comment = comment;
+        this.date = date;
+    }
+    
+    
+
     public Comment(long CommentId, long exersiseId, long patientId, String comment, String date) {
         this.CommentId = CommentId;
         this.exersiseId = exersiseId;

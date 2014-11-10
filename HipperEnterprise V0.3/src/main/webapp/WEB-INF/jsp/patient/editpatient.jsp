@@ -86,29 +86,34 @@
         </div>
     </div>
 </form:form>
-<table class="table table-striped table-bordered">
-        <caption><strong>List of Exercises</strong></caption>
-        <tr>
-            <td width="5%"><strong> id </strong></td>
-            <td><strong> Exercise </strong></td>
-            <td><strong> Description </strong></td>
-            <td width="15%"><strong> </strong></td>
-        </tr>
-        <c:forEach var="patientexercises" items="${patientexercises}">
-            <tr>
-                <td>${patientexercises.exerciseId}</td>
-                <td>${patientexercises.exerciseName}</td>
-                <td>${patientexercises.description}</td>
-                <td>
-                    <div align="center">
-                        <a href="${pageContext.request.contextPath}/patient/viewgraph/${patientexercises.exerciseId}"><button>View</button></a>
-                        <a href=""><button>Delete</button></a>
-                    </div>
-                </td>
-            </tr> 
 
-        </c:forEach>
-    </table>     
+<% Long s = (Long) request.getAttribute("patientId");%> 
+
+<% request.setAttribute("patientId", s);%>
+
+<table class="table table-striped table-bordered">
+    <caption><strong>List of Exercises</strong></caption>
+    <tr>
+        <td width="5%"><strong> id </strong></td>
+        <td><strong> Exercise </strong></td>
+        <td><strong> Description </strong></td>
+        <td width="15%"><strong> </strong></td>
+    </tr>
+    <c:forEach var="patientexercises" items="${patientexercises}">
+        <tr>
+            <td>${patientexercises.exerciseId}</td>
+            <td>${patientexercises.exerciseName}</td>
+            <td>${patientexercises.description}</td>
+            <td>
+                <div align="center">
+                    <a href="${pageContext.request.contextPath}/patient/viewgraph/${patientexercises.exerciseId}&${patientId}"><button>View</button></a>
+                    <a href=""><button>Delete</button></a>
+                </div>
+            </td>
+        </tr> 
+
+    </c:forEach>
+</table>     
 
 
 <%@ include file="../template/bottom.jsp" %>
