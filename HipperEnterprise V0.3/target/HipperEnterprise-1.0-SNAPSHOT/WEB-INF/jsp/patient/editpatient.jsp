@@ -114,9 +114,6 @@
 
     </c:forEach>
 </table>   
-<a>
-    <input type="button" value="Back" onclick="history.go(-1);" />
-</a>
 
 
 <%@ include file="../template/bottom.jsp" %>

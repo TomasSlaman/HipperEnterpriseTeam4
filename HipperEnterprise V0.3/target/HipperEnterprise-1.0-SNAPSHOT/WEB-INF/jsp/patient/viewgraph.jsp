@@ -37,21 +37,7 @@
 <!--</div>-->
 <% Long s = (Long) request.getAttribute("patientId");%> 
 <% request.setAttribute("patientId", s);%>
-<form:form class="form-horizontal" role="form" method="POST" commandName="comment" action="${pageContext.request.contextPath}/patient/viewgraph2/${exercise.exerciseId}&${patientId}">
-    <div class="form-group">
-        <div class="col-sm-10">
-            <form:input path="comment" class="form-control" placeholder="Enter a comment here" />
-        </div>
-    </div>
-    <div class="form-group">        
-        <div class="col-sm-10">
-            <input type="submit" value="Add comment" class="btn btn-default"/>
-            <a href="${pageContext.request.contextPath}/patient/viewgraph2/${exercise.exerciseId}&${patientId}">
-                <input type="button" value="Cancel" class="btn btn-default" />
-            </a> 
-        </div>
-    </div>
-</form:form>
+
 <table class="table table-striped table-condensed">
     <tr>
         <td width="10%"><strong> Date </strong></td>
@@ -70,9 +56,22 @@
         </tr> 
     </c:forEach>
 </table>
-<a>
-    <input type="button" value="Back" onclick="history.go(-1);" />
-</a>
+
+<form:form class="form-horizontal" role="form" method="POST" commandName="comment" action="${pageContext.request.contextPath}/patient/viewgraph2/${exercise.exerciseId}&${patientId}">
+    <div class="form-group">
+        <div class="col-sm-10">
+            <form:input path="comment" class="form-control" placeholder="Enter a comment here" />
+        </div>
+    </div>
+    <div class="form-group">        
+        <div class="col-sm-10">
+            <input type="submit" value="Add comment" class="btn btn-default"/>
+            <a href="${pageContext.request.contextPath}/patient/viewgraph2/${exercise.exerciseId}&${patientId}">
+                <!--<input type="button" value="Cancel" class="btn btn-default" />-->
+            </a> 
+        </div>
+    </div>
+</form:form>
 
 
 
