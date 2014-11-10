@@ -21,26 +21,33 @@
     </form:form>
 
     <form action="${pageContext.request.contextPath}/patient/addexercise/${patient.id}" method="POST">
-        <form:select name="exercises1" path="exercises">
-            <form:option value="0">Selecteer een rol</form:option>
+        <form:select name="exercises1" path="exercises" class="form-control">
+            <form:option value="0">Select an exercise</form:option>
             <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
         </form:select>
-            <form:select name="exercises2" path="exercises">
-            <form:option value="0">Selecteer een rol</form:option>
+        <br>
+        <br>
+        <form:select name="exercises2" path="exercises" class="form-control">
+            <form:option value="0">Select an exercise</form:option>
             <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
         </form:select>
-            <form:select name="exercises3" path="exercises">
-            <form:option value="0">Selecteer een rol</form:option>
+        <br>
+        <br>
+        <form:select name="exercises3" path="exercises" class="form-control">
+            <form:option value="0">Select an exercise</form:option>
             <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
         </form:select>
-            <form:select name="exercises4" path="exercises">
-            <form:option value="0">Selecteer een rol</form:option>
+        <br>
+        <br>
+        <form:select name="exercises4" path="exercises" class="form-control">
+            <form:option value="0">Select an exercise</form:option>
             <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
         </form:select>
-
+        <br>
+        <br>
         <input type="submit" value="Add Exercises" class="btn btn-default" />
     </form>
-    
+
 
 </div>
 <%@ include file="../template/bottom.jsp" %>
