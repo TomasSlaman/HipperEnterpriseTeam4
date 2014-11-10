@@ -8,16 +8,28 @@ package com.controller;
 import com.model.Comment;
 import com.model.Exercise;
 import com.model.PatientUser;
+import com.model.SensorData;
 import com.model.TherapistUser;
+import com.reader.CSVReader;
 import com.service.CommentService;
 import com.service.ExerciseService;
 import com.service.PatientService;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import ma.MovingAverage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -41,7 +53,7 @@ public class PatientController {
 
     @Autowired
     private ExerciseService exerciseService;
-    
+
     @Autowired
     private CommentService commentService;
 
@@ -55,8 +67,8 @@ public class PatientController {
     private static String titlePatientExercise = "View Results";
 
     @RequestMapping(value = "/patientlist")
-    public ModelAndView patientlist( HttpSession session) throws IOException {
-          TherapistUser Therapist = new TherapistUser();
+    public ModelAndView patientlist(HttpSession session) throws IOException {
+        TherapistUser Therapist = new TherapistUser();
         Therapist = (TherapistUser) session.getAttribute("therapist");
         int TherapistID = (int) Therapist.getId();
         ModelAndView patientListView = new ModelAndView("patient/listpatient");
@@ -82,10 +94,10 @@ public class PatientController {
         TherapistUser Therapist = new TherapistUser();
         Therapist = (TherapistUser) session.getAttribute("therapist");
         int TherapistID = (int) Therapist.getId();
-        
+
         ModelAndView patientListView = new ModelAndView("/patient/listpatient");
         patientService.addPatient(patient, Therapist);
-        
+
         List<PatientUser> patients = patientService.getPatientsFromTherapist(TherapistID);
         patientListView.addObject("patients", patients);
         String message = "Patient was successfully added.";
@@ -102,7 +114,6 @@ public class PatientController {
 //        PatientUser patient = patientService.getPatient(id);
 //        patientEditView.addObject("pageTitle", titleEdit);
 //        patientEditView.addObject("patient", patient);
-
         ModelAndView patientEditView = new ModelAndView("/patient/editpatient");
         PatientUser patient = patientService.getPatient(id);
         patientEditView.addObject("pageTitle", titleEdit);
@@ -111,17 +122,16 @@ public class PatientController {
         List<Exercise> patientexercises = patient.getExcersises();
         patientEditView.addObject("patientexercises", patientexercises);
 
-
         return patientEditView;
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView edit(@ModelAttribute("patient") PatientUser patient, HttpSession session) {
 
-         TherapistUser Therapist = new TherapistUser();
+        TherapistUser Therapist = new TherapistUser();
         Therapist = (TherapistUser) session.getAttribute("therapist");
         int TherapistID = (int) Therapist.getId();
-        
+
         ModelAndView patientlistView = new ModelAndView("/patient/listpatient");
         patientService.updatePatient(patient);
         List<PatientUser> patients = patientService.getPatientsFromTherapist(TherapistID);
@@ -129,10 +139,10 @@ public class PatientController {
 
         String message = "Patient was successfully edited.";
         patientlistView.addObject("message", message);
-        
+
         List<Exercise> patientexercises = patient.getExcersises();
         patientlistView.addObject("patientexercises", patientexercises);
-        
+
         return patientlistView;
 
     }
@@ -164,15 +174,15 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
-    public ModelAndView patientView(@RequestParam(value="exercises1", required=false) Long exerciseId1, 
-                                    @RequestParam(value="exercises2", required=false) Long exerciseId2,
-                                    @RequestParam(value="exercises3", required=false) Long exerciseId3,
-                                    @RequestParam(value="exercises4", required=false) Long exerciseId4,
-                                    @PathVariable Long id, @ModelAttribute PatientUser patient) {
+    public ModelAndView patientView(@RequestParam(value = "exercises1", required = false) Long exerciseId1,
+            @RequestParam(value = "exercises2", required = false) Long exerciseId2,
+            @RequestParam(value = "exercises3", required = false) Long exerciseId3,
+            @RequestParam(value = "exercises4", required = false) Long exerciseId4,
+            @PathVariable Long id, @ModelAttribute PatientUser patient) {
 
         ModelAndView patientView = new ModelAndView("patient/editpatient");
         patient = patientService.getPatient(id);
-        
+
         List<Exercise> exercises = patient.getExcersises();
 
         exercises.add(exerciseService.getExercise(exerciseId1));
@@ -189,10 +199,10 @@ public class PatientController {
 
     //View graph controller
     @RequestMapping(value = "/viewgraph1/{id}&{id2}", method = RequestMethod.GET)
-    public ModelAndView viewGraphPage(@PathVariable Long id, @PathVariable Long id2) {
+    public ModelAndView viewGraphPage(HttpServletRequest request, @PathVariable Long id, @PathVariable Long id2) {
 
         ModelAndView patientViewGraph = new ModelAndView("/patient/viewgraph");
-    
+
         Exercise exercise = exerciseService.getExercise(id);
         PatientUser patient = patientService.getPatient(id2);
         patientViewGraph.addObject("exercise", exercise);
@@ -204,17 +214,56 @@ public class PatientController {
         patientViewGraph.addObject("comment", comment);
 
         //             - list of comments
-        List<Comment> allComments = commentService.getComments();       
-        ArrayList<Comment> comments = new ArrayList<Comment>();      
+        List<Comment> allComments = commentService.getComments();
+        ArrayList<Comment> comments = new ArrayList<Comment>();
         Comment[] allInArray = allComments.toArray(new Comment[allComments.size()]);
 
-        for (int i = 0; i < allInArray.length; i++) {     
-            if(allInArray[i].getExersiseId() == id && allInArray[i].getPatientId() == id2){        
-                comments.add(allInArray[i]);
+        for (Comment allInArray1 : allInArray) {
+            if (allInArray1.getExersiseId() == id && allInArray1.getPatientId() == id2) {
+                comments.add(allInArray1);
             }
         }
 
         patientViewGraph.addObject("comments", comments);
+
+        InputStream is = null;
+        String realPath = request.getSession().getServletContext().getRealPath("data/Knie strekken.csv");
+
+        try {
+            is = new FileInputStream(realPath);
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        Reader reader = new InputStreamReader(is);
+
+        CSVReader csvr = new CSVReader(reader, SensorData.class);
+
+        csvr.deserialize();
+
+        List<SensorData> data = csvr.getItems();
+
+        double[] xs = new double[data.size()];
+        double[] ys = new double[data.size()];
+        double[] zs = new double[data.size()];
+
+        //Loop and print the items
+        for (int i = 0; i < data.size(); i++) {
+            xs[i] = data.get(i).getX();
+            ys[i] = data.get(i).getY();
+            zs[i] = data.get(i).getZ();
+        }
+        
+        MovingAverage ma = new MovingAverage();
+        
+        int windowSize = 10;
+        double[] awesomeArray = ma.movingAvg(xs, windowSize, new double[xs.length / windowSize + 1], 0, xs.length);
+
+        for (int i = 0; i < awesomeArray.length; i++) {
+            System.out.println(awesomeArray[i]);
+        }
+
+        System.out.println(ma.countPeaks(awesomeArray));
 
         // title of the page
         patientViewGraph.addObject("pageTitle", titlePatientExercise);
@@ -224,18 +273,18 @@ public class PatientController {
     @RequestMapping(value = "/viewgraph2/{id}&{id2}", method = RequestMethod.POST)
     public ModelAndView viewGraphPageCommentAdd(@PathVariable Long id, @PathVariable Long id2, @ModelAttribute Comment comment) {
 
-        ModelAndView patientCommentAdded = new ModelAndView("/patient/editpatient");   
+        ModelAndView patientCommentAdded = new ModelAndView("/patient/editpatient");
         PatientUser patient = patientService.getPatient(id2);
         patientCommentAdded.addObject("pageTitle", titleEdit);
         patientCommentAdded.addObject("patient", patient).addObject("patientId", patient.getId());
         List<Exercise> patientexercises = patient.getExcersises();
         patientCommentAdded.addObject("patientexercises", patientexercises);
-        
+
         comment.setExersiseId(id);
         comment.setPatientId(id2);
         comment.setDate();
         commentService.addComment(comment);
-        
+
         return patientCommentAdded;
 
     }
