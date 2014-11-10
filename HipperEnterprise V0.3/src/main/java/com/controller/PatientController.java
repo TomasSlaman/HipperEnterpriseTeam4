@@ -14,7 +14,6 @@ import com.reader.CSVReader;
 import com.service.CommentService;
 import com.service.ExerciseService;
 import com.service.PatientService;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,16 +22,12 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import ma.MovingAverage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -226,11 +221,14 @@ public class PatientController {
 
         patientViewGraph.addObject("comments", comments);
 
+        ServletContext servletContext = request.getSession().getServletContext();
+
         InputStream is = null;
-        String realPath = request.getSession().getServletContext().getRealPath("data/Knie strekken.csv");
+        String relaPath = "/resources/data/Knie strekken.csv";
+        String absoPath = servletContext.getRealPath(relaPath);
 
         try {
-            is = new FileInputStream(realPath);
+            is = new FileInputStream(absoPath);
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -253,17 +251,24 @@ public class PatientController {
             ys[i] = data.get(i).getY();
             zs[i] = data.get(i).getZ();
         }
-        
+
         MovingAverage ma = new MovingAverage();
-        
+
         int windowSize = 10;
         double[] awesomeArray = ma.movingAvg(xs, windowSize, new double[xs.length / windowSize + 1], 0, xs.length);
 
-        for (int i = 0; i < awesomeArray.length; i++) {
-            System.out.println(awesomeArray[i]);
-        }
+        int peaks = ma.countPeaks(awesomeArray);
 
-        System.out.println(ma.countPeaks(awesomeArray));
+        String array = "[";
+        for (int i = 0; i < awesomeArray.length; i++) {
+            array += awesomeArray[i];
+            if (i != (awesomeArray.length -1)) {
+                array += ",";
+            }
+        }
+        array += "]";
+
+        patientViewGraph.addObject("sensordata", array);
 
         // title of the page
         patientViewGraph.addObject("pageTitle", titlePatientExercise);

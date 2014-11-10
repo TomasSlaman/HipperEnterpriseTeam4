@@ -100,6 +100,8 @@ Exercise: ${exercise.getExerciseName()}
     var catogories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     var data1 = [10, 0, 10, 0, 12, 10, 0];
     var data2 = [10, 0, 8, 0, 10, 3, 0];
+    var data3 = ${sensordata};
+    console.log(data3);
     var type = 'column';
     $('#year').on('click', function () {
         catogories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -162,11 +164,14 @@ Exercise: ${exercise.getExerciseName()}
                 borderWidth: 0
             },
             series: [{
-                    name: 'Goalline',
+                    name: 'Goal',
                     data: data1
                 }, {
-                    name: 'Patientline',
+                    name: 'Patient',
                     data: data2
+                }, {
+                    name: 'Sensordata',
+                    data: data3
                 }]
         });
     }
