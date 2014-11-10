@@ -106,14 +106,17 @@
             <td>${patientexercises.description}</td>
             <td>
                 <div align="center">
-                    <a href="${pageContext.request.contextPath}/patient/viewgraph/${patientexercises.exerciseId}&${patientId}"><button>View</button></a>
-                    <a href=""><button>Delete</button></a>
+                    <a href="${pageContext.request.contextPath}/patient/viewgraph1/${patientexercises.exerciseId}&${patientId}"><button>View</button></a>
+                    <!--<a href=""><button>Delete</button></a>-->
                 </div>
             </td>
         </tr> 
 
     </c:forEach>
-</table>     
+</table>   
+<a>
+    <input type="button" value="Back" onclick="history.go(-1);" />
+</a>
 
 
 <%@ include file="../template/bottom.jsp" %>
