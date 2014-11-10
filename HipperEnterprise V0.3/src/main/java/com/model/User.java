@@ -5,12 +5,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "User")
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy=InheritanceType.JOINED)
 public class User implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "firstName", nullable = false)    
     private String firstName;
