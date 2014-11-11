@@ -12,6 +12,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
         <script>
+            $(document).ready( function () {
+               styles(); 
+            });
             function yayWeCanEdit() {
                 var form = $("#awesomeForm");
                 form.find('input[type=text]').each(function() {
@@ -29,6 +32,24 @@
                         $(this).css("display", "none");
                     }
                     ;
+                });
+            }
+            
+            function styles(){
+                $('button').each(function () {
+                   if ($(this).text() === 'Delete')  {
+                       $(this).addClass('btn btn-danger');
+                   } 
+                   if ($(this).text() === 'View' || $(this).text() === 'Edit') {
+                       $(this).addClass('btn btn-info');
+                   } else {
+                       $(this).addClass('btn btn-primary');
+                   }
+                });
+                $('table').each(function () {
+                    $(this).addClass('table-condensed');
+                    $(this).removeClass('table-bordered');
+//                    $(this).removeClass('table-striped');
                 });
             }
         </script>

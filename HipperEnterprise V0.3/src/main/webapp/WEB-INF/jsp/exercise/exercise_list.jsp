@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         
-                        <a href="${pageContext.request.contextPath}/exercise/edit/${exercise.exerciseId}"><button>Edit</button></a>
+                        <a href="${pageContext.request.contextPath}/exercise/edit/${exercise.exerciseId}"><button class="btn btn-info">Edit</button></a>
                         <a href="${pageContext.request.contextPath}/exercise/delete/${exercise.exerciseId}"><button>Delete</button></a>
 <!--                        <button><a href="${pageContext.request.contextPath}/exercise/edit/${exercise.exerciseId}">Edit</a></button>
                         <button><a href="${pageContext.request.contextPath}/exercise/delete/${exercise.exerciseId}">Delete</a><br/></button>-->
