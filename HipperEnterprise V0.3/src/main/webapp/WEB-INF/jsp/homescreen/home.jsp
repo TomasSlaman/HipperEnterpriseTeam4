@@ -74,7 +74,7 @@
 
 <%@include file="../template/bottom.jsp" %>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $(function () {
         $('#container').highcharts({
             title: {
@@ -116,7 +116,7 @@
                 }]
         });
     });
-</script>
+</script>-->
 <script src="../resources/js/metro/jquery.min.js"></script>
 <script src="../resources/js/metro/jquery.mousewheel.js"></script>
 <script src="../resources/js/metro/jquery.widget.min.js"></script>
