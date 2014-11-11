@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
 
-<form action="${pageContext.request.contextPath}/patient/addexercise/${patient.id}" method="POST">
+<form action="${pageContext.request.contextPath}/patient/addexercise/${patient.id}" method="POST" class="form-horizontal">
     <div class="form-group">
         <label class="control-label col-sm-2" for="Name">Name:</label>
         <div class="col-sm-10">  
@@ -37,7 +37,14 @@
             <input type="text" name="date" class="form-control" placeholder="Enter a date (DD-MM-YYYY)"/>
         </div>
     </div>
-    <input type="submit" value="Add Exercise" class="btn btn-default" />
+        <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Add Exercise" class="btn btn-default" />
+                <a href="${pageContext.request.contextPath}/patient/edit/${patient.id}">
+                    <input type="button" value="Cancel" class="btn btn-default" />
+                </a> 
+            </div>
+        </div>
 </form>
 
 
