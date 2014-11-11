@@ -30,26 +30,6 @@ Exercise: ${exercise.getExerciseName()}
 
     </div>
 </div>
-
-<div><br>
-    Results here please<br>
-    <br>
-</div>
-<form:form commandName="patient">
-    <table class="table table-striped table-condensed">
-        <!--<caption><strong>Comment section</strong></caption>-->
-        <tr>
-            <td width="45%"><strong> Exercise Information </strong></td>
-
-        </tr>
-        <tr>
-            <td>${exercise.getExerciseName()}</td>
-        </tr>
-        <tr>
-            <td>${exercise.getDescription()}</td>
-        </tr>
-    </table>
-</form:form>
 <br>
 <br>
 <!--</div>-->
@@ -60,17 +40,17 @@ Exercise: ${exercise.getExerciseName()}
     <tr>
         <td width="10%"><strong> Date </strong></td>
         <td width="70%"><strong> Comment </strong></td>
-        <td width="10%"><strong> </strong></td>
+        <!--<td width="10%"><strong> </strong></td>-->
     </tr>
     <c:forEach var="comment" items="${comments}">
         <tr>
             <td>${comment.date}</td>
             <td>${comment.comment}</td>
-            <td>
+<!--            <td>
                 <div align="center">
                     <a href="${pageContext.request.contextPath}/patient/deletecomment/${comment.commentId}"><button>Delete</button></a>                       
                 </div>
-            </td>
+            </td>-->
         </tr> 
     </c:forEach>
 </table>

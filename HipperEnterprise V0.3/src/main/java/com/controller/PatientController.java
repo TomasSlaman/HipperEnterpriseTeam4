@@ -176,7 +176,9 @@ public class PatientController {
             @RequestParam(value = "sets") String sets,
             @RequestParam(value = "date") String date) {
 
-        ModelAndView patientView = new ModelAndView("/patient/editpatient");
+//        ModelAndView patientView = new ModelAndView("/patient/editpatient");
+        
+        ModelAndView patientView = editPage(id);
    
         PatientUser patient = patientService.getPatient(id);
         
