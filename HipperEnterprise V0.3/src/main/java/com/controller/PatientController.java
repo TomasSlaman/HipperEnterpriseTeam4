@@ -203,30 +203,7 @@ public class PatientController {
 
     }
 
-//    @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
-//    public ModelAndView patientView(@RequestParam(value = "exercises1", required = false) Long exerciseId1,
-//            @RequestParam(value = "exercises2", required = false) Long exerciseId2,
-//            @RequestParam(value = "exercises3", required = false) Long exerciseId3,
-//            @RequestParam(value = "exercises4", required = false) Long exerciseId4,
-//            @PathVariable Long id, @ModelAttribute PatientUser patient) {
-//
-//        ModelAndView patientView = new ModelAndView("patient/editpatient");
-//        patient = patientService.getPatient(id);
-//
-////        List<Exercise> exercises = patient.getExcersises();
-//
-////        exercises.add(exerciseService.getExercise(exerciseId1));
-////        exercises.add(exerciseService.getExercise(exerciseId2));
-////        exercises.add(exerciseService.getExercise(exerciseId3));
-////        exercises.add(exerciseService.getExercise(exerciseId4));
-//
-//        patientService.updatePatient(patient);
-//        patientView.addObject("patient", patient);
-//
-//        return patientView;
-//
-//    }
-    //View graph controller
+// view 
     @RequestMapping(value = "/viewgraph1/{id}&{id2}", method = RequestMethod.GET)
     public ModelAndView viewGraphPage(HttpServletRequest request, @PathVariable Long id, @PathVariable Long id2) {
 
@@ -310,19 +287,90 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/viewgraph2/{id}&{id2}", method = RequestMethod.POST)
-    public ModelAndView viewGraphPageCommentAdd(@PathVariable Long id, @PathVariable int id2, @ModelAttribute Comment comment) {
+    public ModelAndView viewGraphPageCommentAdd(HttpServletRequest request, @PathVariable Long id, @PathVariable int id2, @ModelAttribute Comment comment) {
 
-        ModelAndView patientCommentAdded = new ModelAndView("/patient/editpatient");
+        ModelAndView patientCommentAdded = new ModelAndView("/patient/viewgraph");
         PatientUser patient = patientService.getPatient(id2);
-        patientCommentAdded.addObject("pageTitle", titleEdit);
+        Exercise exercise = exerciseService.getExercise(id);
+        
+        patientCommentAdded.addObject("exercise", exercise);
         patientCommentAdded.addObject("patient", patient).addObject("patientId", patient.getId());
-        List<Exercise> patientexercises = programService.getExercisesForPatienId(id2);
-        patientCommentAdded.addObject("patientexercises", patientexercises);
-
+        
         comment.setExersiseId(id);
         comment.setPatientId(id2);
         comment.setDate();
         commentService.addComment(comment);
+
+        // comment section
+        //             - new comment
+        Comment newComment = new Comment();
+        patientCommentAdded.addObject("comment", newComment);
+
+        //             - list of comments
+        List<Comment> allComments = commentService.getComments();
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+        Comment[] allInArray = allComments.toArray(new Comment[allComments.size()]);
+
+        for (Comment allInArray1 : allInArray) {
+            if (allInArray1.getExersiseId() == id && allInArray1.getPatientId() == id2) {
+                comments.add(allInArray1);
+            }
+        }
+
+        patientCommentAdded.addObject("comments", comments);
+
+        ServletContext servletContext = request.getSession().getServletContext();
+
+        InputStream is = null;
+        String relaPath = "/resources/data/Knie strekken.csv";
+        String absoPath = servletContext.getRealPath(relaPath);
+
+        try {
+            is = new FileInputStream(absoPath);
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        Reader reader = new InputStreamReader(is);
+
+        CSVReader csvr = new CSVReader(reader, SensorData.class);
+
+        csvr.deserialize();
+
+        List<SensorData> data = csvr.getItems();
+
+        double[] xs = new double[data.size()];
+        double[] ys = new double[data.size()];
+        double[] zs = new double[data.size()];
+
+        //Loop and print the items
+        for (int i = 0; i < data.size(); i++) {
+            xs[i] = data.get(i).getX();
+            ys[i] = data.get(i).getY();
+            zs[i] = data.get(i).getZ();
+        }
+
+        MovingAverage ma = new MovingAverage();
+
+        int windowSize = 10;
+        double[] awesomeArray = ma.movingAvg(xs, windowSize, new double[xs.length / windowSize + 1], 0, xs.length);
+
+        int peaks = ma.countPeaks(awesomeArray);
+
+        String array = "[";
+        for (int i = 0; i < awesomeArray.length; i++) {
+            array += awesomeArray[i];
+            if (i != (awesomeArray.length - 1)) {
+                array += ",";
+            }
+        }
+        array += "]";
+
+        patientCommentAdded.addObject("sensordata", array);
+
+        // title of the page
+        patientCommentAdded.addObject("pageTitle", titlePatientExercise);
+        
 
         return patientCommentAdded;
 

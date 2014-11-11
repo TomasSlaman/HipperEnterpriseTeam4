@@ -37,8 +37,6 @@ public class PatientUser extends User {
                 @JoinColumn(name = "Therapist_ID", referencedColumnName = "ID")})
     private List<TherapistUser> Therapists = new ArrayList();
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "patient_has_execise", joinColumns = @JoinColumn(name = "patient_id"), inverseJoinColumns = @JoinColumn(name = "exercise_id"))
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "patient")
     private List<Program> programs = new ArrayList();
 
