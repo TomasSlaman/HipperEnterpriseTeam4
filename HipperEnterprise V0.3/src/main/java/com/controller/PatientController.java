@@ -108,7 +108,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public ModelAndView editPage(@PathVariable Long id) {
+    public ModelAndView editPage(@PathVariable int id) {
 
 //        ModelAndView patientEditView = new ModelAndView("/patient/editpatient");
 //        PatientUser patient = patientService.getPatient(id);
@@ -119,8 +119,9 @@ public class PatientController {
         patientEditView.addObject("pageTitle", titleEdit);
         patientEditView.addObject("patient", patient).addObject("patientId", patient.getId());
 
-//        List<Exercise> patientexercises = patient.getExcersises();
-//        patientEditView.addObject("patientexercises", patientexercises);
+        
+        List<Exercise> exercises = programService.getExercisesForPatienId(id);
+        patientEditView.addObject("patientexercises", exercises);
         return patientEditView;
     }
 
@@ -175,11 +176,11 @@ public class PatientController {
             @RequestParam(value = "sets") String sets,
             @RequestParam(value = "date") String date) {
 
-        ModelAndView addExerciseView = new ModelAndView("/patient/editpatient");
+        ModelAndView patientView = new ModelAndView("/patient/editpatient");
    
         PatientUser patient = patientService.getPatient(id);
         
-        List<Program> programs = patient.getPrograms();
+        //List<Program> programs = patient.getPrograms();
         
         Program p = new Program();
         p.setPatient(patient);
@@ -187,20 +188,18 @@ public class PatientController {
         p.setSets(Integer.parseInt(sets));
         p.setDate(date);
         
-        programs.add(p);
+        //programs.add(p);
         
         programService.addProgram(p);
-        patientService.updatePatient(patient);
+        //patientService.updatePatient(patient);
         
-        addExerciseView.addObject("patient", patient);
+        patientView.addObject("patient", patient);
 
         List<Exercise> exercises = programService.getExercisesForPatienId(id);
     
-        for (Exercise ex : exercises) {
-            System.out.println(ex.getDescription());
-        }
+        patientView.addObject("patientexercises", exercises);
         
-        return addExerciseView;
+        return patientView;
 
     }
 
