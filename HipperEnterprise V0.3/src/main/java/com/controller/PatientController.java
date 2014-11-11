@@ -310,14 +310,14 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/viewgraph2/{id}&{id2}", method = RequestMethod.POST)
-    public ModelAndView viewGraphPageCommentAdd(@PathVariable Long id, @PathVariable Long id2, @ModelAttribute Comment comment) {
+    public ModelAndView viewGraphPageCommentAdd(@PathVariable Long id, @PathVariable int id2, @ModelAttribute Comment comment) {
 
         ModelAndView patientCommentAdded = new ModelAndView("/patient/editpatient");
         PatientUser patient = patientService.getPatient(id2);
         patientCommentAdded.addObject("pageTitle", titleEdit);
         patientCommentAdded.addObject("patient", patient).addObject("patientId", patient.getId());
-//        List<Exercise> patientexercises = patient.getExcersises();
-//        patientCommentAdded.addObject("patientexercises", patientexercises);
+        List<Exercise> patientexercises = programService.getExercisesForPatienId(id2);
+        patientCommentAdded.addObject("patientexercises", patientexercises);
 
         comment.setExersiseId(id);
         comment.setPatientId(id2);
