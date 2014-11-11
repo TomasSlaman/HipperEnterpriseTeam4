@@ -194,9 +194,11 @@ public class PatientController {
         
         addExerciseView.addObject("patient", patient);
 
-//        List<Exercise> exercises = programService.getExercisesForPatienId(id);
-//        
-//        
+        List<Exercise> exercises = programService.getExercisesForPatienId(id);
+    
+        for (Exercise ex : exercises) {
+            System.out.println(ex.getDescription());
+        }
         
         return addExerciseView;
 

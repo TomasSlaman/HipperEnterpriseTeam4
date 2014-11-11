@@ -69,23 +69,23 @@ public class ProgramDAO {
         return getCurrentSession().createQuery("FROM Program").list();
     }
     
-//    public List<Exercise> getExercisesForPatienId(int patientId) {
-//        
-//        Query query = getCurrentSession().createSQLQuery("SELECT exercise_exerciseId FROM Program WHERE patient_id = ?");
-//        
-//        List<Integer> exerciseIds = query.setInteger(0, patientId).list();
-//        
-//        List<Exercise> exercises = new ArrayList();
-//    
-//        for (int i : exerciseIds) {
-//            
-//            exercises.add(exerciseService.getExercise(i));
-//            
-//        }
-//        
-//        return exercises;
-//          
-//    }
+    public List<Exercise> getExercisesForPatienId(int patientId) {
+        
+        Query query = getCurrentSession().createSQLQuery("SELECT exercise_exerciseId FROM Program WHERE patient_id = ?").addEntity(Exercise.class);
+        
+        List<Integer> exerciseIds = query.setInteger(0, patientId).list();
+        
+        List<Exercise> exercises = new ArrayList();
+    
+        for (int i : exerciseIds) {
+            
+            exercises.add(exerciseService.getExercise(i));
+            
+        }
+        
+        return exercises;
+          
+    }
     
     public void storeAllPrograms(List<Program> programs) {
         

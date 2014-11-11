@@ -49,10 +49,10 @@ public class ProgramService {
 
     }
 
-//    public List<Exercise>getExercisesForPatienId(int patientId){
-//        return programDAO.getExercisesForPatienId(patientId);
-//
-//    }
+    public List<Exercise>getExercisesForPatienId(int patientId){
+        return programDAO.getExercisesForPatienId(patientId);
+
+    }
     
     public void storeAllPrograms(List<Program> programs) {
 
