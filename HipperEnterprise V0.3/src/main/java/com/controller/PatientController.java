@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ma.MovingAverage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView patientAdd(@ModelAttribute PatientUser patient, HttpSession session) {
+    public ModelAndView patientAdd(@ModelAttribute PatientUser patient, HttpSession session, HttpServletResponse resp) throws IOException {
         TherapistUser Therapist = new TherapistUser();
         Therapist = (TherapistUser) session.getAttribute("therapist");
         int TherapistID = (int) Therapist.getId();
@@ -103,6 +104,7 @@ public class PatientController {
         String message = "Patient was successfully added.";
         patientListView.addObject("message", message);
 
+        resp.sendRedirect("../patient/patientlist");
         return patientListView;
 
     }
@@ -126,7 +128,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("patient") PatientUser patient, HttpSession session) {
+    public ModelAndView edit(@ModelAttribute("patient") PatientUser patient, HttpSession session, HttpServletResponse resp) throws IOException {
 
         TherapistUser Therapist = new TherapistUser();
         Therapist = (TherapistUser) session.getAttribute("therapist");
@@ -142,6 +144,8 @@ public class PatientController {
 
 //        List<Exercise> patientexercises = patient.getExcersises();
 //        patientlistView.addObject("patientexercises", patientexercises);
+        
+        resp.sendRedirect("../patient/patientlist");
         return patientlistView;
 
     }
@@ -172,9 +176,9 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
-    public ModelAndView patientView(@PathVariable int id, @RequestParam(value = "exercise") Long exerciseId,
+    public ModelAndView patientView(@PathVariable int id, HttpServletResponse resp, @RequestParam(value = "exercise") Long exerciseId,
             @RequestParam(value = "sets") String sets,
-            @RequestParam(value = "date") String date) {
+            @RequestParam(value = "date") String date) throws IOException {
 
 //        ModelAndView patientView = new ModelAndView("/patient/editpatient");
         
@@ -200,7 +204,7 @@ public class PatientController {
         List<Exercise> exercises = programService.getExercisesForPatienId(id);
     
         patientView.addObject("patientexercises", exercises);
-        
+        resp.sendRedirect("../edit/"+id);
         return patientView;
 
     }

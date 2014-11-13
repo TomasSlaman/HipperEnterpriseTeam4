@@ -10,6 +10,7 @@ import com.model.TherapistUser;
 import com.service.TherapistService;
 import java.io.IOException;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -55,7 +56,7 @@ public class TherapistController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView therapistAdd(@ModelAttribute TherapistUser therapist) {
+    public ModelAndView therapistAdd(@ModelAttribute TherapistUser therapist, HttpServletResponse resp) throws IOException {
 
         ModelAndView therapistListView = new ModelAndView("/therapist/listtherapist");
         therapistService.addTherapist(therapist);
@@ -64,6 +65,7 @@ public class TherapistController {
         String message = "Therapist was successfully added.";
         therapistListView.addObject("message", message);
 
+        resp.sendRedirect("../therapist/therapistlist");
         return therapistListView;
 
     }
@@ -80,7 +82,7 @@ public class TherapistController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("therapist") TherapistUser therapist) {
+    public ModelAndView edit(@ModelAttribute("therapist") TherapistUser therapist, HttpServletResponse resp) throws IOException {
 
         ModelAndView therapistlistView = new ModelAndView("/therapist/listtherapist");
         therapistService.updateTherapist(therapist);
@@ -89,6 +91,8 @@ public class TherapistController {
 
         String message = "therapist was successfully edited.";
         therapistlistView.addObject("message", message);
+        
+        resp.sendRedirect("../therapist/therapistlist");
         return therapistlistView;
 
     }

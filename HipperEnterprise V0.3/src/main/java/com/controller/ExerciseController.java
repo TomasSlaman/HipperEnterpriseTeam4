@@ -9,6 +9,7 @@ import com.model.Exercise;
 import com.service.ExerciseService;
 import java.io.IOException;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -60,13 +61,14 @@ public class ExerciseController {
     }
     
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView exerciseAdd(@ModelAttribute Exercise ex) throws IOException {
+    public ModelAndView exerciseAdd(@ModelAttribute Exercise ex, HttpServletResponse resp) throws IOException {
         
         ModelAndView exerciseListView = new ModelAndView("/exercise/exercise_list");
         service.addExercise(ex);
         List<Exercise> exercises = service.getExercises();
         
         exerciseListView.addObject("exercises", exercises);
+        resp.sendRedirect("../exercise/list");
         
         return exerciseListView;
         
@@ -85,12 +87,14 @@ public class ExerciseController {
     }
     
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView updateExercise(@ModelAttribute("exercise") Exercise ex) {
+    public ModelAndView updateExercise(@ModelAttribute("exercise") Exercise ex, HttpServletResponse resp) throws IOException {
         
         ModelAndView exerciseListView = new ModelAndView("/exercise/exercise_list");
         service.updateExercise(ex);
         List<Exercise> exercises = service.getExercises();
         exerciseListView.addObject("exercises", exercises);
+        
+        resp.sendRedirect("../exercise/list");
         
         return exerciseListView;
         
