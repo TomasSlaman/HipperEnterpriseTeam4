@@ -37,7 +37,7 @@ public class ExerciseValidator implements Validator {
         }
 
         for (ObjectError er : errors.getAllErrors()) {
-            System.out.println(er.getCode());
+            System.out.println(er.getDefaultMessage());
         }
     }
 }

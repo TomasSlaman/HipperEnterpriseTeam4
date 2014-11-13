@@ -74,6 +74,7 @@ public class ExerciseController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView exerciseAdd(@ModelAttribute @Valid Exercise ex, BindingResult result) throws IOException {
         if (result.hasErrors()) {
+            //Set form errors
             return new ModelAndView("/exercise/add_exercise");
         }
 
@@ -100,8 +101,12 @@ public class ExerciseController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView updateExercise(@ModelAttribute("exercise") Exercise ex) {
+    public ModelAndView updateExercise(@Valid @ModelAttribute("exercise") Exercise ex, BindingResult result) {
 
+        if (result.hasErrors()) {
+            //Set Form errors
+            return new ModelAndView("/exercise/edit_exercise");
+        }
         ModelAndView exerciseListView = new ModelAndView("/exercise/exercise_list");
         service.updateExercise(ex);
         List<Exercise> exercises = service.getExercises();

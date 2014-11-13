@@ -30,8 +30,7 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
-    <!--<bean id="exerciseValidator" class="com.validator.ExerciseValidator" />-->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="properties/messages" />
+        <property name="basename" value="/WEB-INF/messages" />
     </bean>
 </beans>
