@@ -16,15 +16,19 @@ Patient: ${patient.firstName} ${patient.lastName} <br>
 Exercise: ${exercise.getExerciseName()}
 
 <div id="chart-container">
-    <input type="button" id="year" value="Year" />
+    <input type="button" id="program" value="Program" />
     <input type="button" id="month" value="Month" />
     <input type="button" id="week" value="Week" />
 
     <select style="margin-left: 10px" id="type">
-        <option value="column">Bar chart</option>
         <option value="line">Line</option>
+        <option value="column">Bar chart</option>
         <option value="spline">Smooth line</option>
     </select>
+    <label>
+        <input type="checkbox" id="sensordata" />
+        Sensordata
+    </label>
 
     <div id="container">
 
@@ -101,30 +105,65 @@ Exercise: ${exercise.getExerciseName()}
     var data1 = [10, 0, 10, 0, 12, 10, 0];
     var data2 = [10, 0, 8, 0, 10, 3, 0];
     var data3 = ${sensordata};
-    console.log(data3);
-    var type = 'column';
-    $('#year').on('click', function () {
+    var type = 'line';
+    var series;
+
+
+    $('#program').on('click', function () {
         catogories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         data1 = [42 * 4, 50 * 4, 50 * 4, 53 * 4, 53 * 4, 53 * 4, 52 * 4, 52 * 4, 52 * 4, 52 * 4, 52 * 4, 53 * 4];
         data2 = [31 * 4, 34 * 4, 37 * 4, 40 * 4, 45 * 4, 48 * 4, 52 * 4, 52 * 4, 52 * 4, 44 * 4, 45 * 4, 49 * 4];
+        updateSeries([data1, data2]);
         setHighChart();
     });
     $('#month').on('click', function () {
         catogories = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
         data1 = [42, 43, 45, 43];
         data2 = [31, 34, 37, 40];
+        updateSeries([data1, data2]);
         setHighChart();
     });
     $('#week').on('click', function () {
         catogories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         data1 = [10, 0, 10, 0, 12, 10, 0];
         data2 = [10, 0, 8, 0, 10, 3, 0];
+        updateSeries([data1, data2]);
         setHighChart();
     });
 
     $('#type').on('change', function () {
         type = $('#type option:selected').val();
-        console.log($('#type option:selected').val());
+        setHighChart();
+    });
+
+    function updateSeries(data) {
+        for (var key in series) {
+            if (series.hasOwnProperty(key) && series[key].name !== 'Sensordata') {
+                series[key].data = data[key];
+            }
+        }
+    }
+
+    series = [{
+            name: 'Goal',
+            data: data1
+        }, {
+            name: 'Patient',
+            data: data2
+        }
+    ];
+
+    $('#sensordata').on('click', function () {
+        console.log($(this));
+        if (!$(this).prop('checked')) {
+            for (var key in series) {
+                if (series.hasOwnProperty(key) && series[key].name === 'Sensordata') {
+                    series.splice(key, 1);
+                }
+            }
+        } else {
+            series.push({name: "Sensordata", data: data3});
+        }
         setHighChart();
     });
 
@@ -146,7 +185,7 @@ Exercise: ${exercise.getExerciseName()}
             },
             yAxis: {
                 title: {
-                    text: 'Amount of exercises'
+                    text: 'Reps'
                 },
                 plotLines: [{
                         value: 0,
@@ -163,16 +202,7 @@ Exercise: ${exercise.getExerciseName()}
                 verticalAlign: 'middle',
                 borderWidth: 0
             },
-            series: [{
-                    name: 'Goal',
-                    data: data1
-                }, {
-                    name: 'Patient',
-                    data: data2
-                }, {
-                    name: 'Sensordata',
-                    data: data3
-                }]
+            series: series
         });
     }
 </script>
