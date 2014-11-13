@@ -9,15 +9,18 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@include file="../template/top.jsp" %>
+
 <div class="metro">
+
     <div style="background: url(../resources/images/hip2.jpeg) top left no-repeat; background-size: cover; height: 300px;">
-        <div class="container" style="padding: 50px 20px">
+        <div class="container" >
             <h1 class="fg-white">Welkom ${therapist.getFirstName()}!</h1>
         </div>
     </div>
-    <div class="container">
-        <div class="grid fluid">
-            <div class="tile-group">
+
+    <div class="grid fluid">
+
+            <div class="tile-group" style="width: 90%; margin: 0px auto;">
                 <a class="tile double double-vertical bg-green" href="${pageContext.request.contextPath}/patient/add" data-click="transform">
                     <div class="tile-content icon">
                         <i class="icon-plus"></i>
@@ -69,7 +72,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <%@include file="../template/bottom.jsp" %>
 
