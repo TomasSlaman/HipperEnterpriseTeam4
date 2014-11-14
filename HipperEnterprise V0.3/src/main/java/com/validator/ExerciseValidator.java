@@ -28,16 +28,12 @@ public class ExerciseValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Exercise ex = (Exercise) target;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exerciseName", "field.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exerciseType", "field.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "field.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exerciseName", "NotEmpty", "Exercise name is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exerciseType", "NotEmpty", "Exercise type is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty", "Description is required");
 
         if (ex.getDuration() < 0.1) {
-            errors.rejectValue("duration", "zero.or.lower");
-        }
-
-        for (ObjectError er : errors.getAllErrors()) {
-            System.out.println(er.getDefaultMessage());
+            errors.rejectValue("duration", "NotNull", "Duration has to be above 0");
         }
     }
 }
