@@ -87,6 +87,22 @@
     </div>
 </form:form>
 
+<div id="chart-container">
+    <input type="button" id="program" value="Program" />
+    <input type="button" id="month" value="Month" />
+    <input type="button" id="week" value="Week" />
+
+    <select style="margin-left: 10px" id="type">
+        <option value="column">Bar chart</option>
+        <option value="line">Line</option>
+        <option value="spline">Smooth line</option>
+    </select>
+
+    <div id="container">
+
+    </div>
+</div>
+
 <% Long s = (Long) request.getAttribute("patientId");%> 
 
 <% request.setAttribute("patientId", s);%>
@@ -119,3 +135,99 @@
 
 
 <%@ include file="../template/bottom.jsp" %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setHighChart();
+    });
+    var catogories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    var data1 = [10, 0, 10, 0, 12, 10, 0];
+    var data2 = [10, 0, 8, 0, 10, 3, 0];
+    var type = 'column';
+    var series;
+
+
+    $('#program').on('click', function () {
+        catogories = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Weel 7', 'Week 8', 'Week 9', 'Week 10', 'Week 11', 'Week 12'];
+        data1 = [3, 4, 5, 5, 6, 7, 8, 9, 10, 10, 11, 11, 12];
+        data2 = [3, 4, 5, 6, 6, 6, 8, 9, 10, 10, 11, 12, 12];
+        updateSeries([data1, data2]);
+        setHighChart();
+    });
+    $('#month').on('click', function () {
+        catogories = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+        data1 = [3, 4, 5, 5];
+        data2 = [3, 4, 5, 6];
+        updateSeries([data1, data2]);
+        setHighChart();
+    });
+    $('#week').on('click', function () {
+        catogories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        data1 = [2, 0, 1, 0, 2, 2, 0];
+        data2 = [2, 0, 2, 0, 2, 3, 0];
+        updateSeries([data1, data2]);
+        setHighChart();
+    });
+
+    $('#type').on('change', function () {
+        type = $('#type option:selected').val();
+        setHighChart();
+    });
+
+    function updateSeries(data) {
+        for (var key in series) {
+            if (series.hasOwnProperty(key) && series[key].name !== 'Sensordata') {
+                series[key].data = data[key];
+            }
+        }
+    }
+
+    series = [{
+            name: 'Goal',
+            data: data1
+        }, {
+            name: 'Patient',
+            data: data2
+        }
+    ];
+
+    function setHighChart() {
+        $('#container').highcharts({
+            chart: {
+                type: type
+            },
+            title: {
+                text: '${exercise.getExerciseName()}',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                categories: catogories
+            },
+            yAxis: {
+                title: {
+                    text: 'Exercises'
+                },
+                plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+            },
+            tooltip: {
+                valueSuffix: ' exercises'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: series
+        });
+    }
+</script>
+<script src="../../resources/js/highchart/js/highcharts.js"></script>
+<script src="../../resources/js/highchart/js/modules/exporting.js"></script>

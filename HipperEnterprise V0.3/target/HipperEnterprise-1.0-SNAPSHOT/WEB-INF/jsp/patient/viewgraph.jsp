@@ -110,7 +110,7 @@ Exercise: ${exercise.getExerciseName()}
 
 
     $('#program').on('click', function () {
-        catogories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        catogories = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Weel 7',  'Week 8', 'Week 9', 'Week 10', 'Week 11', 'Week 12'];
         data1 = [42 * 4, 50 * 4, 50 * 4, 53 * 4, 53 * 4, 53 * 4, 52 * 4, 52 * 4, 52 * 4, 52 * 4, 52 * 4, 53 * 4];
         data2 = [31 * 4, 34 * 4, 37 * 4, 40 * 4, 45 * 4, 48 * 4, 52 * 4, 52 * 4, 52 * 4, 44 * 4, 45 * 4, 49 * 4];
         updateSeries([data1, data2]);
