@@ -5,17 +5,13 @@
  */
 package com.controller;
 
-import com.model.Comment;
-import com.model.Exercise;
-import com.model.PatientUser;
-import com.model.Program;
-import com.model.SensorData;
-import com.model.TherapistUser;
+import com.model.*;
 import com.reader.CSVReader;
 import com.service.CommentService;
 import com.service.ExerciseService;
 import com.service.PatientService;
 import com.service.ProgramService;
+import com.validator.PatientValidator;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,9 +23,13 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import ma.MovingAverage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +56,14 @@ public class PatientController {
     
     @Autowired
     private ProgramService programService;
+    
+    @Autowired
+    private PatientValidator patientValidator;
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setValidator(patientValidator);
+    }
 
     @ModelAttribute("exercises")
     public List<Exercise> populateOfferedCourses() {
@@ -90,13 +98,20 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView patientAdd(@ModelAttribute PatientUser patient, HttpSession session) {
-        TherapistUser Therapist = new TherapistUser();
+    public ModelAndView patientAdd(@ModelAttribute("patient") @Valid PatientUser patientUser, 
+            BindingResult result, HttpSession session) {
+        
+        if (result.hasErrors()) {
+            
+            return new ModelAndView("/patient/addpatient");
+        }
+        
+        TherapistUser Therapist = null;
         Therapist = (TherapistUser) session.getAttribute("therapist");
         int TherapistID = (int) Therapist.getId();
 
         ModelAndView patientListView = new ModelAndView("/patient/listpatient");
-        patientService.addPatient(patient, Therapist);
+        patientService.addPatient(patientUser, Therapist);
 
         List<PatientUser> patients = patientService.getPatientsFromTherapist(TherapistID);
         patientListView.addObject("patients", patients);
@@ -126,8 +141,11 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("patient") PatientUser patient, HttpSession session) {
+    public ModelAndView edit(@ModelAttribute("patient") @Valid PatientUser patient, BindingResult result, HttpSession session) {
 
+        if (result.hasErrors()) {
+            return new ModelAndView("/patient/editpatient");
+        }
         TherapistUser Therapist = new TherapistUser();
         Therapist = (TherapistUser) session.getAttribute("therapist");
         int TherapistID = (int) Therapist.getId();
