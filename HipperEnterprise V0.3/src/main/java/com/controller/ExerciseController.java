@@ -39,7 +39,7 @@ public class ExerciseController {
     private final static String TITLE_NEW = "New exercise";
     private final static String TITLE_EDIT = "Edit exercise";
 
-    @InitBinder
+    @InitBinder("exercise")
     public void initBinder(WebDataBinder binder) {
         binder.setValidator(exValidator);
     }
@@ -72,14 +72,16 @@ public class ExerciseController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView exerciseAdd(@ModelAttribute @Valid Exercise ex, BindingResult result) throws IOException {
+    public ModelAndView exerciseAdd(@ModelAttribute @Valid Exercise exercise, BindingResult result) throws IOException {
         if (result.hasErrors()) {
-            //Set form errors
-            return new ModelAndView("/exercise/add_exercise");
+            ModelAndView view = new ModelAndView("/exercise/add_exercise");
+            view.addObject("exercise", exercise);
+            view.addObject("pageTitle", TITLE_NEW);
+            return view;
         }
 
         ModelAndView exerciseListView = new ModelAndView("/exercise/exercise_list");
-        service.addExercise(ex);
+        service.addExercise(exercise);
         List<Exercise> exercises = service.getExercises();
 
         exerciseListView.addObject("exercises", exercises);
@@ -104,8 +106,10 @@ public class ExerciseController {
     public ModelAndView updateExercise(@Valid @ModelAttribute("exercise") Exercise ex, BindingResult result) {
 
         if (result.hasErrors()) {
-            //Set Form errors
-            return new ModelAndView("/exercise/edit_exercise");
+            ModelAndView view = new ModelAndView("/exercise/edit_exercise");
+            view.addObject("pageTitle", TITLE_EDIT);
+            view.addObject("exercise", ex);
+            return view;
         }
         ModelAndView exerciseListView = new ModelAndView("/exercise/exercise_list");
         service.updateExercise(ex);

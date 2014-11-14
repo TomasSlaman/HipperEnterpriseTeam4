@@ -49,7 +49,7 @@ public class ProgramService {
 
     }
 
-    public List<Exercise>getExercisesForPatienId(int patientId){
+    public List<Exercise>getExercisesForPatienId(long patientId){
         return programDAO.getExercisesForPatienId(patientId);
 
     }

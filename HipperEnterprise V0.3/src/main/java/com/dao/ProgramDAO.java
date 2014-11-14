@@ -69,10 +69,10 @@ public class ProgramDAO {
         return getCurrentSession().createQuery("FROM Program").list();
     }
     
-    public List<Exercise> getExercisesForPatienId(int patientId) {
+    public List<Exercise> getExercisesForPatienId(long patientId) {
         
         Query query = getCurrentSession().createSQLQuery("SELECT * FROM Program INNER JOIN Exercise ON Exercise.exerciseId = exercise_exerciseId WHERE patient_id = ?").addEntity(Exercise.class);
-        query.setInteger(0, patientId);
+        query.setLong(0, patientId);
         List<Exercise> ex = query.list();
         /*List<Integer> exerciseIds = query.setInteger(0, patientId).list();
         

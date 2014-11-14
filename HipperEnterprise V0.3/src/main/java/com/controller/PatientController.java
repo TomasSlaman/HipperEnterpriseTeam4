@@ -53,14 +53,14 @@ public class PatientController {
 
     @Autowired
     private CommentService commentService;
-    
+
     @Autowired
     private ProgramService programService;
-    
+
     @Autowired
     private PatientValidator patientValidator;
-    
-    @InitBinder
+
+    @InitBinder("patient")
     public void initBinder(WebDataBinder binder) {
         binder.setValidator(patientValidator);
     }
@@ -98,14 +98,16 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView patientAdd(@ModelAttribute("patient") @Valid PatientUser patientUser, 
+    public ModelAndView patientAdd(@ModelAttribute("patient") @Valid PatientUser patientUser,
             BindingResult result, HttpSession session) {
-        
+
         if (result.hasErrors()) {
-            
+            ModelAndView view = new ModelAndView("/patient/addpatient");
+            view.addObject("pageTitle", titleNew);
+            view.addObject("patient", patientUser);
             return new ModelAndView("/patient/addpatient");
         }
-        
+
         TherapistUser Therapist = null;
         Therapist = (TherapistUser) session.getAttribute("therapist");
         int TherapistID = (int) Therapist.getId();
@@ -123,7 +125,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public ModelAndView editPage(@PathVariable int id) {
+    public ModelAndView editPage(@PathVariable long id) {
 
 //        ModelAndView patientEditView = new ModelAndView("/patient/editpatient");
 //        PatientUser patient = patientService.getPatient(id);
@@ -134,9 +136,9 @@ public class PatientController {
         patientEditView.addObject("pageTitle", titleEdit);
         patientEditView.addObject("patient", patient).addObject("patientId", patient.getId());
 
-        
         List<Exercise> exercises = programService.getExercisesForPatienId(id);
         patientEditView.addObject("patientexercises", exercises);
+        patientEditView.addObject("errored", false);
         return patientEditView;
     }
 
@@ -144,7 +146,16 @@ public class PatientController {
     public ModelAndView edit(@ModelAttribute("patient") @Valid PatientUser patient, BindingResult result, HttpSession session) {
 
         if (result.hasErrors()) {
-            return new ModelAndView("/patient/editpatient");
+            
+            ModelAndView view = new ModelAndView("/patient/editpatient");
+            view.addObject("pageTitle", titleEdit);
+            view.addObject("patient", patient);
+            view.addObject("patientId", patient.getId());
+            view.addObject("errored", true);
+
+            List<Exercise> exercises = programService.getExercisesForPatienId(patient.getId());
+            view.addObject("patientexercises", exercises);
+            return view;
         }
         TherapistUser Therapist = new TherapistUser();
         Therapist = (TherapistUser) session.getAttribute("therapist");
@@ -157,6 +168,7 @@ public class PatientController {
 
         String message = "Patient was successfully edited.";
         patientlistView.addObject("message", message);
+        patientlistView.addObject("errored", false);
 
 //        List<Exercise> patientexercises = patient.getExcersises();
 //        patientlistView.addObject("patientexercises", patientexercises);
@@ -165,7 +177,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deletePatient(@PathVariable Long id) {
+    public ModelAndView deletePatient(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("/patient/listpatient");
         patientService.deletePatient(id);
         List<PatientUser> patients = patientService.getPatients();
@@ -176,7 +188,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.GET)
-    public ModelAndView addExerciseToPatientView(@PathVariable Long id) {
+    public ModelAndView addExerciseToPatientView(@PathVariable long id) {
 
         ModelAndView addExerciseView = new ModelAndView("/patient/addexercise");
 
@@ -190,35 +202,36 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
-    public ModelAndView patientView(@PathVariable int id, @RequestParam(value = "exercise") Long exerciseId,
+    public ModelAndView patientView(@PathVariable long id, @RequestParam(value = "exercise") Long exerciseId,
             @RequestParam(value = "sets") String sets,
             @RequestParam(value = "date") String date) {
 
-//        ModelAndView patientView = new ModelAndView("/patient/editpatient");
-        
+        //        ModelAndView patientView = new ModelAndView("/patient/editpatient");
+        if (sets.equals("") || date.equals("") || exerciseId == 0) {
+            return addExerciseToPatientView(id);
+        }
+
         ModelAndView patientView = editPage(id);
-   
+
         PatientUser patient = patientService.getPatient(id);
-        
-        //List<Program> programs = patient.getPrograms();
-        
+
+     //List<Program> programs = patient.getPrograms();
         Program p = new Program();
         p.setPatient(patient);
         p.setExercise(exerciseService.getExercise(exerciseId));
         p.setSets(Integer.parseInt(sets));
         p.setDate(date);
-        
-        //programs.add(p);
-        
+
+     //programs.add(p);
         programService.addProgram(p);
-        //patientService.updatePatient(patient);
-        
+     //patientService.updatePatient(patient);
+
         patientView.addObject("patient", patient);
 
         List<Exercise> exercises = programService.getExercisesForPatienId(id);
-    
+
         patientView.addObject("patientexercises", exercises);
-        
+
         return patientView;
 
     }
@@ -312,10 +325,10 @@ public class PatientController {
         ModelAndView patientCommentAdded = new ModelAndView("/patient/viewgraph");
         PatientUser patient = patientService.getPatient(id2);
         Exercise exercise = exerciseService.getExercise(id);
-        
+
         patientCommentAdded.addObject("exercise", exercise);
         patientCommentAdded.addObject("patient", patient).addObject("patientId", patient.getId());
-        
+
         comment.setExersiseId(id);
         comment.setPatientId(id2);
         comment.setDate();
@@ -390,7 +403,6 @@ public class PatientController {
 
         // title of the page
         patientCommentAdded.addObject("pageTitle", titlePatientExercise);
-        
 
         return patientCommentAdded;
 

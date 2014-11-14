@@ -10,54 +10,63 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="firstName">First name:</label>
             <div class="col-sm-10">
+                <form:errors path="firstName" style="color:red;"/>
                 <form:input path="firstName" class="form-control" placeholder="Enter first name" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="lastName">Last name:</label>
             <div class="col-sm-10">          
+                <form:errors path="lastName" style="color:red;"/>
                 <form:input path="lastName" class="form-control" placeholder="Enter last name" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="email">E-mail:</label>
             <div class="col-sm-10">
+                <form:errors path="email" style="color:red;"/>
                 <form:input path="email" class="form-control" placeholder="Enter e-mail" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="password">Password:</label>
             <div class="col-sm-10">
+                <form:errors path="password" style="color:red;"/>
                 <form:input path="password" class="form-control" placeholder="Enter password" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="address">Address:</label>
             <div class="col-sm-10">
+                <form:errors path="address" style="color:red;"/>
                 <form:input path="address" class="form-control" placeholder="Enter address" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="postalCode">Postal code:</label>
             <div class="col-sm-10">
+                <form:errors path="postalCode" style="color:red;"/>
                 <form:input path="postalCode" class="form-control" placeholder="Enter postal code" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="city">City:</label>
             <div class="col-sm-10">
+                <form:errors path="city" style="color:red;"/>
                 <form:input path="city" class="form-control" placeholder="Enter city" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="length">Length:</label>
             <div class="col-sm-10">
+                <form:errors path="length" style="color:red;"/>
                 <form:input path="length" class="form-control" placeholder="Enter length" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="weight">Weight:</label>
             <div class="col-sm-10">
+                <form:errors path="weight" style="color:red;"/>
                 <form:input path="weight" class="form-control" placeholder="Enter weight" />
             </div>
         </div>

@@ -8,10 +8,13 @@ package com.controller;
 
 import com.model.TherapistUser;
 import com.service.TherapistService;
+import com.validator.TherapistValidator;
 import java.io.IOException;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,10 +33,18 @@ public class TherapistController {
 
     @Autowired
     private TherapistService therapistService;
-
+    
+    @Autowired
+    private TherapistValidator therapistValidator;
+    
+    @InitBinder("therapist")
+    public void initBinder(WebDataBinder binder) {
+        binder.setValidator(therapistValidator);
+    }
+    
     private static String titleNew = "New therapist";
     private static String titleEdit = "Edit therapist";
-
+    
     @RequestMapping(value = "/therapistlist")
     public ModelAndView therapistList() throws IOException {
         ModelAndView therapistListView = new ModelAndView("therapist/listtherapist");
@@ -55,8 +66,15 @@ public class TherapistController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView therapistAdd(@ModelAttribute TherapistUser therapist) {
+    public ModelAndView therapistAdd(@ModelAttribute("therapist") @Valid TherapistUser therapist, BindingResult result) {
 
+        if (result.hasErrors()) {
+            ModelAndView view = new ModelAndView("/therapist/addtherapist");
+            view.addObject("pageTitle", titleNew);
+            view.addObject("therapist", therapist);
+            return  view;
+        }
+        
         ModelAndView therapistListView = new ModelAndView("/therapist/listtherapist");
         therapistService.addTherapist(therapist);
         List<TherapistUser> therapists = therapistService.getTherapists();
@@ -75,13 +93,20 @@ public class TherapistController {
         TherapistUser therapist = therapistService.getTherapist(id);
         therapistEditView.addObject("pageTitle", titleEdit);
         therapistEditView.addObject("therapist", therapist);
-
+        therapistEditView.addObject("errored", false);
         return therapistEditView;
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("therapist") TherapistUser therapist) {
+    public ModelAndView edit(@ModelAttribute("therapist") @Valid TherapistUser therapist, BindingResult result) {
 
+        if (result.hasErrors()) {
+            ModelAndView view = new ModelAndView("/therapist/edittherapist");
+            view.addObject("pageTitle", titleEdit);
+            view.addObject("therapist", therapist);
+            view.addObject("errored", true);
+            return view;
+        }
         ModelAndView therapistlistView = new ModelAndView("/therapist/listtherapist");
         therapistService.updateTherapist(therapist);
         List<TherapistUser> therapists = therapistService.getTherapists();
