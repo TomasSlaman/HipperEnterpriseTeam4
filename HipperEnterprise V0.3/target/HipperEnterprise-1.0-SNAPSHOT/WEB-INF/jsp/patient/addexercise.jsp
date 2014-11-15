@@ -9,17 +9,17 @@
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
 
-<form action="${pageContext.request.contextPath}/patient/addexercise/${patient.id}" method="POST" class="form-horizontal">
+<form:form action="${pageContext.request.contextPath}/patient/addexercise" method="POST" commandName="program" class="form-horizontal">
     <div class="form-group">
         <label class="control-label col-sm-2" for="Name">Name:</label>
         <div class="col-sm-10">  
-            <form:input class="form-control" readonly="true" name="patient" path="patient" value="${patient.firstName}"/>
+            <form:input class="form-control" readonly="true" path="patient" value="${patient.firstName}"/>
         </div>
     </div>
         <div class="form-group">
         <label class="control-label col-sm-2" for="Exercise">Exercise:</label>
         <div class="col-sm-10">  
-    <form:select name="exercise" path="exercises" class="form-control">
+    <form:select path="exercise" class="form-control">
         <form:option value="0">Select an exercise</form:option>
         <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
     </form:select>
@@ -28,13 +28,22 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="sets">Sets:</label>
         <div class="col-sm-10">          
-            <input type="text" name="sets" class="form-control" placeholder="Enter sets"/>
+            <form:errors path="sets" style="color:red;"/>
+            <form:input path="sets" class="form-control" placeholder="Enter sets" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="sets">Repetitions:</label>
+        <div class="col-sm-10">          
+            <form:errors path="repetitions" style="color:red;"/>
+            <form:input path="repetitions" class="form-control" placeholder="Enter repetitions" />
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="date">Date:</label>
         <div class="col-sm-10">
-            <input type="text" name="date" class="form-control" placeholder="Enter a date (DD-MM-YYYY)"/>
+            <form:errors path="date" style="color:red;"/>
+            <form:input path="date" class="form-control" placeholder="Enter a date (DD-MM-YYYY)" />
         </div>
     </div>
         <div class="form-group">        
@@ -45,7 +54,7 @@
                 </a> 
             </div>
         </div>
-</form>
+</form:form>
 
 
 <%@ include file="../template/bottom.jsp" %>

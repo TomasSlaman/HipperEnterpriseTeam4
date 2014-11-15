@@ -38,6 +38,8 @@ public class Program implements Serializable {
     private int sets;
     @Column(name = "date", nullable = false)
     private String date;
+    @Column(name = "repetitions", nullable = false)
+    private int repetitions;
 
     public long getId() {
         return id;
@@ -78,7 +80,13 @@ public class Program implements Serializable {
     public void setDate(String date) {
         this.date = date;
     }
-    
-    
+
+    public int getRepetitions() {
+        return repetitions;
+    }
+
+    public void setRepetitions(int repetitions) {
+        this.repetitions = repetitions;
+    }
     
 }

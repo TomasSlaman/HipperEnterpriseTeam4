@@ -45,6 +45,7 @@ public class ProgramDAO {
         pToUpdate.setExercise(p.getExercise());
         pToUpdate.setSets(p.getSets());
         pToUpdate.setDate(p.getDate());
+        pToUpdate.setRepetitions(p.getRepetitions());
              
         getCurrentSession().update(pToUpdate);
 
