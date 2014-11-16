@@ -13,7 +13,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="Name">Name:</label>
         <div class="col-sm-10">  
-            <form:input class="form-control" readonly="true" path="patient" value="${patient.firstName}"/>
+            <form:input class="form-control" readonly="true" path="patient" value="${patient.id}"/>          
         </div>
     </div>
     <div class="form-group">

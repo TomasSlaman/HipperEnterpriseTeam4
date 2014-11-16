@@ -30,7 +30,7 @@ public class ExerciseEditor extends PropertyEditorSupport {
     // Converts a String team id to a Exercise (when submitting form)
     @Override
     public void setAsText(String text) {
-        System.out.println(text);
+        System.out.println("blabla EX: " + text);
         Exercise ex = this.exService.getExercise(Long.valueOf(text));
 
         this.setValue(ex);

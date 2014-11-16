@@ -6,6 +6,7 @@
 package com.controller;
 
 import com.editor.ExerciseEditor;
+import com.editor.PatientEditor;
 import com.model.*;
 import com.reader.CSVReader;
 import com.service.CommentService;
@@ -63,15 +64,19 @@ public class PatientController {
     @Autowired
     private ExerciseEditor exerciseEditor;
     
+    @Autowired
+    private PatientEditor patientEditor;
+    
     @InitBinder
     public void initBinder2(WebDataBinder binder) {
         binder.registerCustomEditor(Exercise.class, exerciseEditor);
+        binder.registerCustomEditor(PatientUser.class, patientEditor);
     }
     
     @InitBinder("patient")
     public void initBinder(WebDataBinder binder) {
         binder.setValidator(patientValidator);
-
+        
     }
 
     @ModelAttribute("exercises")
@@ -219,6 +224,9 @@ public class PatientController {
 
         System.out.println("OK!!?!?");
 
+        System.out.println("hoi" + program.getPatient());
+        System.out.println(program.getExercise());
+        System.out.println("??");
         programService.addProgram(program);
 
         long patientId = program.getPatient().getId();
