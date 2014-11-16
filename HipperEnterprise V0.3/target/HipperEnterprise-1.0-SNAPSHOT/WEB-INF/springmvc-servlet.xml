@@ -30,11 +30,4 @@
         <property name="suffix" value=".jsp" />
     </bean>
     <mvc:annotation-driven/>
-    <bean id="exerciseService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-      <property name="formatters">
-           <set>
-                 <ref bean="exerciseFormatter"/>
-           </set>
-      </property>
-</bean>
 </beans>

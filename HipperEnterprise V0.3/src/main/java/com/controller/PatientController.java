@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import com.editor.ExerciseEditor;
 import com.model.*;
 import com.reader.CSVReader;
 import com.service.CommentService;
@@ -26,7 +27,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import ma.MovingAverage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -59,7 +59,12 @@ public class PatientController {
 
     @Autowired
     private PatientValidator patientValidator;
-
+    
+    @InitBinder
+    public void initBinder2(WebDataBinder binder) {
+        binder.registerCustomEditor(Exercise.class, new ExerciseEditor(exerciseService));
+    }
+    
     @InitBinder("patient")
     public void initBinder(WebDataBinder binder) {
         binder.setValidator(patientValidator);
@@ -207,7 +212,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addexercise", method = RequestMethod.POST)
-    public ModelAndView patientView(@ModelAttribute("program") @Valid Program program, BindingResult result) {
+    public ModelAndView patientView(@ModelAttribute("program") Program program, BindingResult result) {
 
         System.out.println("OK!!?!?");
 

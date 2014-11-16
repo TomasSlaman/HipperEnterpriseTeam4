@@ -18,9 +18,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExerciseEditor extends PropertyEditorSupport {
 
-    @Autowired
     private ExerciseService exService;
 
+    public ExerciseEditor() {
+    }
+    
+    public ExerciseEditor(ExerciseService exService) {
+        this.exService = exService;
+    }
+    
     // Converts a String team id to a Exercise (when submitting form)
     @Override
     public void setAsText(String text) {
@@ -29,5 +35,11 @@ public class ExerciseEditor extends PropertyEditorSupport {
 
         this.setValue(ex);
     }
+    
+    /*@Override
+    public String getAsText() {
+        Exercise ex = (Exercise)this.getValue();
+        return ex.getExerciseName();
+    }*/
 
 }
