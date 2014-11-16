@@ -5,7 +5,6 @@
  */
 package com.controller;
 
-import com.editor.ExerciseEditor;
 import com.model.*;
 import com.reader.CSVReader;
 import com.service.CommentService;
@@ -27,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import ma.MovingAverage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -61,20 +60,12 @@ public class PatientController {
     @Autowired
     private PatientValidator patientValidator;
 
-    @Autowired
-    private ExerciseEditor exerciseEditor;
-
     @InitBinder("patient")
     public void initBinder(WebDataBinder binder) {
         binder.setValidator(patientValidator);
-        
+
     }
-    
-    @InitBinder("exercise")
-    public void initBinder2(WebDataBinder binder) {
-        binder.registerCustomEditor(Exercise.class, this.exerciseEditor);
-    }
-    
+
     @ModelAttribute("exercises")
     public List<Exercise> populateOfferedCourses() {
         return exerciseService.getExercises();
@@ -156,7 +147,7 @@ public class PatientController {
     public ModelAndView edit(@ModelAttribute("patient") @Valid PatientUser patient, BindingResult result, HttpSession session) {
 
         if (result.hasErrors()) {
-            
+
             ModelAndView view = new ModelAndView("/patient/editpatient");
             view.addObject("pageTitle", titleEdit);
             view.addObject("patient", patient);
@@ -205,7 +196,7 @@ public class PatientController {
         PatientUser currentPatient = patientService.getPatient(id);
         Program p = new Program();
         p.setPatient(currentPatient);
-   
+
         List<Exercise> ex = exerciseService.getExercises();
         addExerciseView.addObject("patient", p.getPatient());
         addExerciseView.addObject("exercises", ex);
@@ -214,23 +205,23 @@ public class PatientController {
         return addExerciseView;
 
     }
-    
-    @RequestMapping(value= "/addexercise", method = RequestMethod.POST)
-    public ModelAndView patientView(@ModelAttribute("program") Program program) {
-     
+
+    @RequestMapping(value = "/addexercise", method = RequestMethod.POST)
+    public ModelAndView patientView(@ModelAttribute("program") @Valid Program program, BindingResult result) {
+
         System.out.println("OK!!?!?");
-        
+
         programService.addProgram(program);
-        
+
         long patientId = program.getPatient().getId();
         PatientUser patient = patientService.getPatient(patientId);
-        
+
         ModelAndView patientView = editPage(patientId);
         patientView.addObject("patient", patient);
         patientView.addObject("patientexercises", programService.getExercisesForPatienId(patientId));
-        
+
         return patientView;
-        
+
     }
 
 //    @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
@@ -267,7 +258,6 @@ public class PatientController {
 //        return patientView;
 //
 //    }
-
 // view 
     @RequestMapping(value = "/viewgraph1/{id}&{id2}", method = RequestMethod.GET)
     public ModelAndView viewGraphPage(HttpServletRequest request, @PathVariable Long id, @PathVariable Long id2) {

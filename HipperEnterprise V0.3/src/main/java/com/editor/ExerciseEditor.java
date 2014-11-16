@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.editor;
-
 
 import com.model.Exercise;
 import com.service.ExerciseService;
@@ -17,10 +15,9 @@ import org.springframework.stereotype.Component;
  *
  * @author duytran
  */
-
 @Component
 public class ExerciseEditor extends PropertyEditorSupport {
-    
+
     @Autowired
     private ExerciseService exService;
 
@@ -28,10 +25,9 @@ public class ExerciseEditor extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) {
         System.out.println(text);
-       Exercise ex = this.exService.getExercise(Long.valueOf(text));
+        Exercise ex = this.exService.getExercise(Long.valueOf(text));
 
         this.setValue(ex);
     }
 
-    
 }

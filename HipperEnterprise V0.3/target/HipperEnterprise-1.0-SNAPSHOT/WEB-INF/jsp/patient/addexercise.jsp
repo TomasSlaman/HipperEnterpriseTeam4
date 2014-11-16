@@ -16,13 +16,13 @@
             <form:input class="form-control" readonly="true" path="patient" value="${patient.firstName}"/>
         </div>
     </div>
-        <div class="form-group">
+    <div class="form-group">
         <label class="control-label col-sm-2" for="Exercise">Exercise:</label>
         <div class="col-sm-10">  
-    <form:select path="exercise.exerciseId" class="form-control">
-        <form:option value="0">Select an exercise</form:option>
-        <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
-    </form:select>
+            <form:select path="exercise" class="form-control">
+                <form:option value="0">Select an exercise</form:option>
+                <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
+            </form:select>
         </div>
     </div>
     <div class="form-group">
@@ -46,14 +46,14 @@
             <form:input path="date" class="form-control" placeholder="Enter a date (DD-MM-YYYY)" />
         </div>
     </div>
-        <div class="form-group">        
-            <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" value="Add Exercise" class="btn btn-default" />
-                <a href="${pageContext.request.contextPath}/patient/edit/${patient.id}">
-                    <input type="button" value="Cancel" class="btn btn-default" />
-                </a> 
-            </div>
+    <div class="form-group">        
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="Add Exercise" class="btn btn-default" />
+            <a href="${pageContext.request.contextPath}/patient/edit/${patient.id}">
+                <input type="button" value="Cancel" class="btn btn-default" />
+            </a> 
         </div>
+    </div>
 </form:form>
 
 
