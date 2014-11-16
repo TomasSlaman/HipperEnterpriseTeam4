@@ -60,9 +60,12 @@ public class PatientController {
     @Autowired
     private PatientValidator patientValidator;
     
+    @Autowired
+    private ExerciseEditor exerciseEditor;
+    
     @InitBinder
     public void initBinder2(WebDataBinder binder) {
-        binder.registerCustomEditor(Exercise.class, new ExerciseEditor(exerciseService));
+        binder.registerCustomEditor(Exercise.class, exerciseEditor);
     }
     
     @InitBinder("patient")
