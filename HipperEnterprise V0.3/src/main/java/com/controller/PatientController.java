@@ -222,11 +222,6 @@ public class PatientController {
     @RequestMapping(value = "/addexercise", method = RequestMethod.POST)
     public ModelAndView patientView(@ModelAttribute("program") Program program, BindingResult result) {
 
-        System.out.println("OK!!?!?");
-
-        System.out.println("hoi" + program.getPatient());
-        System.out.println(program.getExercise());
-        System.out.println("??");
         programService.addProgram(program);
 
         long patientId = program.getPatient().getId();
@@ -240,40 +235,6 @@ public class PatientController {
 
     }
 
-//    @RequestMapping(value = "/addexercise/{id}", method = RequestMethod.POST)
-//    public ModelAndView patientView(@PathVariable long id, @RequestParam(value = "exercise") Long exerciseId,
-//            @RequestParam(value = "sets") String sets,
-//            @RequestParam(value = "date") String date) {
-//
-//        //        ModelAndView patientView = new ModelAndView("/patient/editpatient");
-//        if (sets.equals("") || date.equals("") || exerciseId == 0) {
-//            return addExerciseToPatientView(id);
-//        }
-//
-//        ModelAndView patientView = editPage(id);
-//
-//        PatientUser patient = patientService.getPatient(id);
-//
-//     //List<Program> programs = patient.getPrograms();
-//        Program p = new Program();
-//        p.setPatient(patient);
-//        p.setExercise(exerciseService.getExercise(exerciseId));
-//        p.setSets(Integer.parseInt(sets));
-//        p.setDate(date);
-//
-//     //programs.add(p);
-//        programService.addProgram(p);
-//     //patientService.updatePatient(patient);
-//
-//        patientView.addObject("patient", patient);
-//
-//        List<Exercise> exercises = programService.getExercisesForPatienId(id);
-//
-//        patientView.addObject("patientexercises", exercises);
-//
-//        return patientView;
-//
-//    }
 // view 
     @RequestMapping(value = "/viewgraph1/{id}&{id2}", method = RequestMethod.GET)
     public ModelAndView viewGraphPage(HttpServletRequest request, @PathVariable Long id, @PathVariable Long id2) {

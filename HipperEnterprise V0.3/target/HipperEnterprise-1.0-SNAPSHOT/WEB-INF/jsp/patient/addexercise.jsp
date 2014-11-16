@@ -11,7 +11,7 @@
 
 <form:form action="${pageContext.request.contextPath}/patient/addexercise" method="POST" commandName="program" class="form-horizontal">
     <div class="form-group">
-        <label class="control-label col-sm-2" for="Name">Name:</label>
+        <label class="control-label col-sm-2" for="Name">Patient ID:</label>
         <div class="col-sm-10">  
             <form:input class="form-control" readonly="true" path="patient" value="${patient.id}"/>          
         </div>

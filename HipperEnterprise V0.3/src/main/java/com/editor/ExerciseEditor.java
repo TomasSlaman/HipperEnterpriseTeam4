@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExerciseEditor extends PropertyEditorSupport {
 
+    @Autowired
     private ExerciseService exService;
 
     public ExerciseEditor() {
@@ -32,7 +33,7 @@ public class ExerciseEditor extends PropertyEditorSupport {
     public void setAsText(String text) {
         System.out.println("blabla EX: " + text);
         Exercise ex = this.exService.getExercise(Long.valueOf(text));
-
+   
         this.setValue(ex);
     }
     

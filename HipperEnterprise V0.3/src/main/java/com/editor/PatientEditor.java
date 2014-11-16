@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PatientEditor extends PropertyEditorSupport {
     
+    @Autowired
     private PatientService patientService;
     
     public PatientEditor(){};
@@ -30,9 +31,9 @@ public class PatientEditor extends PropertyEditorSupport {
     
     @Override
     public void setAsText(String text) {
-        System.out.println("PATIENT: " + text);
+        
         PatientUser p = this.patientService.getPatient(Long.valueOf(text));
-
+  
         this.setValue(p);
     }
     
