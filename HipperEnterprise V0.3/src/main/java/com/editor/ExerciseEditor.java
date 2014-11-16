@@ -22,13 +22,13 @@ import org.springframework.stereotype.Component;
 public class ExerciseEditor extends PropertyEditorSupport {
     
     @Autowired
-    private ExerciseService teamService;
+    private ExerciseService exService;
 
     // Converts a String team id to a Exercise (when submitting form)
     @Override
     public void setAsText(String text) {
         System.out.println(text);
-       Exercise ex = this.teamService.getExercise(Integer.valueOf(text));
+       Exercise ex = this.exService.getExercise(Long.valueOf(text));
 
         this.setValue(ex);
     }

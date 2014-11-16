@@ -74,7 +74,7 @@ public class PatientController {
     public void initBinder2(WebDataBinder binder) {
         binder.registerCustomEditor(Exercise.class, this.exerciseEditor);
     }
-
+    
     @ModelAttribute("exercises")
     public List<Exercise> populateOfferedCourses() {
         return exerciseService.getExercises();

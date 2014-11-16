@@ -19,7 +19,7 @@
         <div class="form-group">
         <label class="control-label col-sm-2" for="Exercise">Exercise:</label>
         <div class="col-sm-10">  
-    <form:select path="exercise" class="form-control">
+    <form:select path="exercise.exerciseId" class="form-control">
         <form:option value="0">Select an exercise</form:option>
         <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
     </form:select>
