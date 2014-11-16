@@ -8,17 +8,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <%@ include file="../template/top.jsp" %>
-
 <form:form action="${pageContext.request.contextPath}/patient/addexercise" method="POST" commandName="program" class="form-horizontal">
     <div class="form-group">
         <label class="control-label col-sm-2" for="Name">Patient ID:</label>
         <div class="col-sm-10">  
-            <form:input class="form-control" readonly="true" path="patient" value="${patient.id}"/>          
+            <form:input name="patientInput" class="form-control" readonly="true" path="patient" value="${patient.id}"/>          
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="Exercise">Exercise:</label>
-        <div class="col-sm-10">  
+        <div class="col-sm-10">
+            <form:errors path="exercise" style="color:red;"/>
             <form:select path="exercise" class="form-control">
                 <form:option value="0">Select an exercise</form:option>
                 <form:options items="${exercises}" itemValue="exerciseId" itemLabel="exerciseName"/>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="sets">Repetitions:</label>
+        <label class="control-label col-sm-2" for="repetitions">Repetitions:</label>
         <div class="col-sm-10">          
             <form:errors path="repetitions" style="color:red;"/>
             <form:input path="repetitions" class="form-control" placeholder="Enter repetitions" />
@@ -56,5 +56,13 @@
     </div>
 </form:form>
 
-
 <%@ include file="../template/bottom.jsp" %>
+
+<script>
+    setValue();
+    function setValue() {
+        var ele = document.getElementById("patient");
+        ele.value = ${program.patient.id};
+    
+    }
+</script>

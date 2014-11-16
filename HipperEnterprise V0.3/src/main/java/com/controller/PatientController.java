@@ -14,6 +14,7 @@ import com.service.ExerciseService;
 import com.service.PatientService;
 import com.service.ProgramService;
 import com.validator.PatientValidator;
+import com.validator.ProgramValidator;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -62,6 +63,9 @@ public class PatientController {
     private PatientValidator patientValidator;
     
     @Autowired
+    private ProgramValidator programValidator;
+    
+    @Autowired
     private ExerciseEditor exerciseEditor;
     
     @Autowired
@@ -77,6 +81,11 @@ public class PatientController {
     public void initBinder(WebDataBinder binder) {
         binder.setValidator(patientValidator);
         
+    }
+    
+    @InitBinder("program")
+    public void initBinder3(WebDataBinder binder) {
+        binder.setValidator(programValidator);
     }
 
     @ModelAttribute("exercises")
@@ -220,8 +229,16 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/addexercise", method = RequestMethod.POST)
-    public ModelAndView patientView(@ModelAttribute("program") Program program, BindingResult result) {
+    public ModelAndView patientView(@ModelAttribute("program") @Valid Program program, BindingResult result) {
 
+        if (result.hasErrors()) {
+            ModelAndView view = new ModelAndView("/patient/addexercise");
+            
+            List<Exercise> ex = exerciseService.getExercises();
+            view.addObject("program", program);
+            view.addObject("exercises", ex);
+            return view;
+        }
         programService.addProgram(program);
 
         long patientId = program.getPatient().getId();
